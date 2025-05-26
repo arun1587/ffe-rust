@@ -16,7 +16,7 @@ pub struct Event {
     pub link: String,
 }
 
-fn parse_events_from_html(html: &str, region_query: &str, month: u32, year: i32) -> Result<Vec<Event>, Box<dyn Error>> {
+fn parse_events_from_html(html: &str, month: u32, year: i32) -> Result<Vec<Event>, Box<dyn Error>> {
     let document = Html::parse_document(html);
     let row_selector = Selector::parse("tr.liste_clair, tr.liste_fonce").unwrap();
     let td_selector = Selector::parse("td").unwrap();
@@ -55,16 +55,14 @@ fn parse_events_from_html(html: &str, region_query: &str, month: u32, year: i32)
                 .map(|href| format!("https://www.echecs.asso.fr/{}", href))
                 .unwrap_or_default();
 
-            if location.to_lowercase().contains(&region_query.to_lowercase()) {
-                events.push(Event {
-                    title,
-                    department,
-                    location,
-                    start_date,
-                    end_date,
-                    link,
-                });
-            } 
+            events.push(Event {
+                title,
+                department,
+                location,
+                start_date,
+                end_date,
+                link,
+            });
         } else {
             println!("[DEBUG] Failed to parse start or end date");
         }
@@ -74,7 +72,7 @@ fn parse_events_from_html(html: &str, region_query: &str, month: u32, year: i32)
 }
 
 
-pub fn get_upcoming_events_by_region_and_month(region_query: &str, month: u32, year: i32) -> Result<Vec<Event>, Box<dyn Error>> {
+pub fn get_upcoming_events_by_region_and_month(month: u32, year: i32) -> Result<Vec<Event>, Box<dyn Error>> {
     let client = Client::new();
     let mut headers = HeaderMap::new();
     headers.insert(USER_AGENT, "Mozilla/5.0".parse().unwrap());
@@ -93,7 +91,8 @@ pub fn get_upcoming_events_by_region_and_month(region_query: &str, month: u32, y
                 match res {
                     Ok(response) => {
                         let html = response.text()?;
-                        let mut daily_events = parse_events_from_html(&html, region_query, month, year)?;
+
+                        let mut daily_events = parse_events_from_html(&html, month, year)?;
                         events.append(&mut daily_events);
                     }
                     Err(err) => {

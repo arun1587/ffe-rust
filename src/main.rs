@@ -3,7 +3,7 @@ mod sdk;
 use sdk::{events::get_upcoming_events_by_region_and_month, routing::get_road_distance};
 use std::env;
 use std::error::Error;
-use std::io;
+use sdk::departments::DepartmentLookup;
 
 fn main() -> Result<(), Box<dyn Error>> {
     let args: Vec<String> = env::args().collect();
@@ -19,25 +19,37 @@ fn main() -> Result<(), Box<dyn Error>> {
     let year: i32 = args[4].parse()?;
 
     let api_key = env::var("ORS_API_KEY")?;
-    let origin = format!("{}, France", city);
-    let events = get_upcoming_events_by_region_and_month("", month, year)?;
+    let lookup = DepartmentLookup::from_csv("src/departments.csv")?;
 
+    let origin = if let Some(department_name) = lookup.get_name(&department) {
+        format!("{},{},France", city, department_name)
+    } else {
+        println!("Unknown origin department: {}", department);
+        return Err("Unknown origin department".into());
+    };
+
+    let events = get_upcoming_events_by_region_and_month(month, year)?;
     let mut reachable_events = Vec::new();
 
     for event in events {
-        let event_location = format!("{}, France", event.location);
-
-        if let Ok(summary) = get_road_distance(&origin, &event_location, &api_key) {
-            if summary.duration_hours <= 2.0 {
-                println!("[REACHABLE] {} at {} ({:.1} km, {:.2} hrs)",
-                         event.title, event.location, summary.distance_km, summary.duration_hours);
-                reachable_events.push(event);
+        if let Some(department_name) = lookup.get_name(&event.department) {
+            let event_location = format!("{},{},France", department_name, event.location);
+            println!("event location: {}", event_location);
+            if let Ok(summary) = get_road_distance(&origin, &event_location, &api_key) {
+                if summary.duration_hours <= 2.0 {
+                    println!("[REACHABLE] {} at {} ({:.1} km, {:.2} hrs)",
+                             event.title, event.location, summary.distance_km, summary.duration_hours);
+                    reachable_events.push(event);
+                } else {
+                    println!("[TOO FAR] {} at {} ({:.1} km, {:.2} hrs)",
+                             event.title, event.location, summary.distance_km, summary.duration_hours);
+                }
             } else {
-                println!("[TOO FAR] {} at {} ({:.1} km, {:.2} hrs)",
-                         event.title, event.location, summary.distance_km, summary.duration_hours);
+                println!("[ERROR] Failed to calculate distance to event at {}", event.location);
             }
+
         } else {
-            println!("[ERROR] Failed to calculate distance to event at {}", event.location);
+            println!("Unknown department: {}", event.department);
         }
     }
 
