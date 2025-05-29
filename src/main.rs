@@ -1,6 +1,6 @@
 // main.rs (final example using the SDK)
 mod sdk;
-use sdk::{events::get_upcoming_events_by_region_and_month, routing::get_road_distance};
+use sdk::{events::get_upcoming_events_by_region_and_month, routing::get_road_distance, config::get_ors_api_key};
 use std::env;
 use std::error::Error;
 use sdk::departments::DepartmentLookup;
@@ -18,7 +18,7 @@ fn main() -> Result<(), Box<dyn Error>> {
     let month: u32 = args[3].parse()?;
     let year: i32 = args[4].parse()?;
 
-    let api_key = env::var("ORS_API_KEY")?;
+    let api_key = get_ors_api_key()?;
     let lookup = DepartmentLookup::from_csv("src/departments.csv")?;
 
     let origin = if let Some(department_name) = lookup.get_name(&department) {
@@ -37,12 +37,12 @@ fn main() -> Result<(), Box<dyn Error>> {
             println!("event location: {}", event_location);
             if let Ok(summary) = get_road_distance(&origin, &event_location, &api_key) {
                 if summary.duration_hours <= 2.0 {
-                    println!("[REACHABLE] {} at {} ({:.1} km, {:.2} hrs)",
-                             event.title, event.location, summary.distance_km, summary.duration_hours);
+                    println!("[REACHABLE] {} at {} ({:.1} km, {:.2} hrs, date={})",
+                             event.title, event.location, summary.distance_km, summary.duration_hours, event.start_date);
                     reachable_events.push(event);
                 } else {
-                    println!("[TOO FAR] {} at {} ({:.1} km, {:.2} hrs)",
-                             event.title, event.location, summary.distance_km, summary.duration_hours);
+                    // println!("[TOO FAR] {} at {} ({:.1} km, {:.2} hrs)",
+                    //          event.title, event.location, summary.distance_km, summary.duration_hours);
                 }
             } else {
                 println!("[ERROR] Failed to calculate distance to event at {}", event.location);

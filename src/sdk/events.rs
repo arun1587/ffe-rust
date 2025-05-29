@@ -85,7 +85,6 @@ pub fn get_upcoming_events_by_region_and_month(month: u32, year: i32) -> Result<
             Some(date) => {
                 let date_string = format!("{:02}/{:02}/{}", date.day(), date.month(), date.year());
                 let url = format!("https://www.echecs.asso.fr/Calendrier.aspx?jour={}", date_string);
-                println!("[DEBUG] Fetching URL: {}", url);
                 let res = client.get(&url).headers(headers.clone()).send();
 
                 match res {

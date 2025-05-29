@@ -10,22 +10,6 @@ pub struct RouteSummary {
 }
 
 #[derive(Debug, Deserialize)]
-struct OpenRouteResponse {
-    routes: Vec<Route>,
-}
-
-#[derive(Debug, Deserialize)]
-struct Route {
-    summary: Summary,
-}
-
-#[derive(Debug, Deserialize)]
-struct Summary {
-    distance: f64,
-    duration: f64,
-}
-
-#[derive(Debug, Deserialize)]
 struct GeoResponse {
     features: Vec<Feature>,
 }
@@ -40,9 +24,25 @@ struct Geometry {
     coordinates: [f64; 2],
 }
 
+#[derive(Deserialize)]
+struct Response {
+    routes: Vec<Route>,
+}
+
+#[derive(Deserialize)]
+struct Route {
+    summary: Summary,
+}
+
+#[derive(Deserialize)]
+struct Summary {
+    distance: f64,
+    duration: f64,
+}
+
 pub fn get_road_distance(city1: &str, city2: &str, api_key: &str) -> Result<RouteSummary, Box<dyn Error>> {
-    let (lon1, lat1) = geocode_city(&city1, city1)?;
-    let (lon2, lat2) = geocode_city(&city2, city2)?;
+    let (lon1, lat1) = geocode_city(&city1, api_key)?;
+    let (lon2, lat2) = geocode_city(&city2, api_key)?;
 
     let url = "https://api.openrouteservice.org/v2/directions/driving-car";
     let body = serde_json::json!({
@@ -51,7 +51,6 @@ pub fn get_road_distance(city1: &str, city2: &str, api_key: &str) -> Result<Rout
             [lon2, lat2]
         ]
     });
-    println!("RESP: {}", serde_json::to_string_pretty(&body)?);
 
     let client = Client::new();
     let res = client
@@ -61,24 +60,8 @@ pub fn get_road_distance(city1: &str, city2: &str, api_key: &str) -> Result<Rout
         .json(&body)
         .send()?;
 
-    #[derive(Deserialize)]
-    struct Response {
-        routes: Vec<Route>, 
-    }
-
-    #[derive(Deserialize)]
-    struct Route {
-        summary: Summary,
-    }
-
-    #[derive(Deserialize)]
-    struct Summary {
-        distance: f64,
-        duration: f64,
-    }
-
     let route: Response = res.json()?;
-    let summary = &route.routes[0].summary;
+    let summary: &Summary = &route.routes[0].summary;
 
     Ok(RouteSummary {
         distance_km: summary.distance / 1000.0,
@@ -93,8 +76,23 @@ fn geocode_city(city: &str, api_key: &str) -> Result<(f64, f64), Box<dyn Error>>
         city
     );
 
-    let response = reqwest::blocking::get(&url)?;
-    let geo: GeoResponse = response.json()?;
+    let response = reqwest::blocking::get(&url);
+    let response = match response {
+        Ok(resp) => resp,
+        Err(err) => {
+            eprintln!("[ERROR] Failed to send geocoding request: {}", err);
+            return Err(Box::new(err));
+        }
+    };
+
+    let geo = response.json::<GeoResponse>();
+    let geo = match geo {
+        Ok(g) => g,
+        Err(err) => {
+            eprintln!("[ERROR] Failed to parse geocode response: {}", err);
+            return Err(Box::new(err));
+        }
+    };
     let coords = geo.features.first().ok_or("No results from geocode")?.geometry.coordinates;
 
     Ok((coords[0], coords[1]))
