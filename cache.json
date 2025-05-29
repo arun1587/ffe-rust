@@ -1,0 +1,50 @@
+{
+  "geocodes": {
+    "Ain,BOURG EN BRESSE,France": [
+      5.228476,
+      46.204677
+    ],
+    "Finistère,QUIMPER,France": [
+      -4.098306,
+      47.996076
+    ],
+    "Isère,GRENOBLE,France": [
+      5.427647,
+      45.395749
+    ],
+    "Rennes,Ille-et-Vilaine,France": [
+      -1.665857,
+      48.110805
+    ],
+    "Allier,VICHY,France": [
+      3.426668,
+      46.132259
+    ],
+    "Hautes-Alpes,GAP,France": [
+      6.044383,
+      44.518465
+    ]
+  },
+  "routes": {
+    "Rennes,Ille-et-Vilaine,France::Isère,GRENOBLE,France": [
+      851.4816999999999,
+      7.967583333333333
+    ],
+    "Rennes,Ille-et-Vilaine,France::Hautes-Alpes,GAP,France": [
+      1005.336,
+      10.154277777777779
+    ],
+    "Rennes,Ille-et-Vilaine,France::Finistère,QUIMPER,France": [
+      214.89170000000001,
+      2.5361944444444444
+    ],
+    "Rennes,Ille-et-Vilaine,France::Ain,BOURG EN BRESSE,France": [
+      730.4255,
+      6.876416666666667
+    ],
+    "Rennes,Ille-et-Vilaine,France::Allier,VICHY,France": [
+      574.1415,
+      5.570111111111111
+    ]
+  }
+}

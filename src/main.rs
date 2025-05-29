@@ -1,6 +1,7 @@
 // main.rs (final example using the SDK)
 mod sdk;
-use sdk::{events::get_upcoming_events_by_region_and_month, routing::{get_road_distance, GeoCache},config::get_ors_api_key};
+use sdk::routing::{cache::GeoCache, route::get_road_distance};
+use sdk::{events::get_upcoming_events_by_region_and_month,config::get_ors_api_key};
 use std::env;
 use std::error::Error;
 use sdk::departments::DepartmentLookup;
@@ -32,12 +33,12 @@ fn main() -> Result<(), Box<dyn Error>> {
     let mut reachable_events = Vec::new();
 
     // Initialize cache
-    let mut cache = GeoCache::default();
+    // let mut cache = GeoCache::default();
+    let mut cache = GeoCache::load_from_file("cache.json")?;
 
     for event in events {
         if let Some(department_name) = lookup.get_name(&event.department) {
             let event_location = format!("{},{},France", department_name, event.location);
-            println!("event location: {}", event_location);
             if let Ok(summary) = get_road_distance(&origin, &event_location, &api_key, &mut cache) {
                 if summary.duration_hours <= 2.0 {
                     println!("[REACHABLE] {} at {} ({:.1} km, {:.2} hrs, date={})",
@@ -50,13 +51,13 @@ fn main() -> Result<(), Box<dyn Error>> {
             } else {
                 println!("[ERROR] Failed to calculate distance to event at {}", event.location);
             }
-
         } else {
             println!("Unknown department: {}", event.department);
         }
+        // save the updated cache to the file
+        cache.save_to_file("cache.json")?;
     }
 
     println!("\n{} events are reachable within 2 hours.", reachable_events.len());
-
     Ok(())
 }
