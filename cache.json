@@ -1,32 +1,16 @@
 {
   "geocodes": {
-    "TOULOUSE,Haute-Garonne,France": [
-      1.440694,
-      43.603902
+    "BASTIA,Haute-Corse,France": [
+      9.448058,
+      42.703379
     ],
-    "LIMOGES,Haute-Vienne,France": [
-      1.260181,
-      45.837735
+    "BAGNERES DE BIGORRE,Hautes-Pyrénées,France": [
+      0.151411,
+      43.068112
     ],
-    "ILLE SUR TET,Pyrénées-Orientales,France": [
-      2.61996,
-      42.66915
-    ],
-    "Rennes,Ille-et-Vilaine,France": [
-      -1.665857,
-      48.110805
-    ],
-    "GALLARGUES LE MONTUEUX,Gard,France": [
-      4.170457,
-      43.719676
-    ],
-    "CORBAS,Rhône,France": [
-      4.912738,
-      45.67806
-    ],
-    "MEAUX,Seine-et-Marne,France": [
-      2.884664,
-      48.958136
+    "SAVIGNY,Haute-Savoie,France": [
+      5.951708,
+      46.06942
     ],
     "ISSY LES MOULINEAUX,Hauts-de-Seine,France": [
       2.264404,
@@ -36,37 +20,17 @@
       6.099677,
       46.30491
     ],
-    "LYON,Rhône,France": [
-      4.835571,
-      45.732398
-    ],
     "HAGETMAU,Landes,France": [
       -0.594911,
       43.656198
-    ],
-    "LONS LE SAUNIER,Jura,France": [
-      5.555609,
-      46.673817
     ],
     "LA CRAU,Var,France": [
       6.075428,
       43.149755
     ],
-    "SAVIGNY,Haute-Savoie,France": [
-      5.951708,
-      46.06942
-    ],
-    "CEYRESTE,Bouches-du-Rhône,France": [
-      5.636393,
-      43.197325
-    ],
-    "SAINT ETIENNE,Loire,France": [
-      4.397111,
-      45.438474
-    ],
-    "PARIS,Paris,France": [
-      2.342865,
-      48.858705
+    "TOURS,Indre-et-Loire,France": [
+      0.689776,
+      47.386419
     ],
     "PANAZOL,Haute-Vienne,France": [
       1.301408,
@@ -76,135 +40,123 @@
       6.263127,
       48.714304
     ],
+    "TOULOUSE,Haute-Garonne,France": [
+      1.440694,
+      43.603902
+    ],
+    "Rennes,Ille-et-Vilaine,France": [
+      -1.665857,
+      48.110805
+    ],
+    "SAINT ETIENNE,Loire,France": [
+      4.397111,
+      45.438474
+    ],
+    "ROANNE,Loire,France": [
+      4.070619,
+      46.045837
+    ],
+    "PARIS,Paris,France": [
+      2.342865,
+      48.858705
+    ],
+    "GALLARGUES LE MONTUEUX,Gard,France": [
+      4.170457,
+      43.719676
+    ],
     "ORLEANS,Loiret,France": [
       1.90081,
       47.90345
     ],
-    "GERARDMER,Vosges,France": [
-      6.871904,
-      48.072562
+    "MEAUX,Seine-et-Marne,France": [
+      2.884664,
+      48.958136
+    ],
+    "LYON,Rhône,France": [
+      4.835571,
+      45.732398
     ],
     "BORDEAUX,Gironde,France": [
       -0.570437,
       44.842411
     ],
-    "BAGNERES DE BIGORRE,Hautes-Pyrénées,France": [
-      0.151411,
-      43.068112
+    "CARCASSONNE,Aude,France": [
+      2.350625,
+      43.217405
     ],
-    "BASTIA,Haute-Corse,France": [
-      9.448058,
-      42.703379
+    "LIMOGES,Haute-Vienne,France": [
+      1.260181,
+      45.837735
+    ],
+    "ILLE SUR TET,Pyrénées-Orientales,France": [
+      2.61996,
+      42.66915
     ],
     "GOURNAY EN BRAY,Seine-Maritime,France": [
       1.722902,
       49.481127
     ],
-    "TOURS,Indre-et-Loire,France": [
-      0.689776,
-      47.386419
+    "CEYRESTE,Bouches-du-Rhône,France": [
+      5.636393,
+      43.197325
     ],
-    "ALBERTVILLE,Savoie,France": [
-      6.389481,
-      45.670841
+    "CORBAS,Rhône,France": [
+      4.912738,
+      45.67806
+    ],
+    "LONS LE SAUNIER,Jura,France": [
+      5.555609,
+      46.673817
     ],
     "MONTIGNY LE BRETONNEUX,Yvelines,France": [
       2.033196,
       48.772896
     ],
-    "CARCASSONNE,Aude,France": [
-      2.350625,
-      43.217405
+    "ALBERTVILLE,Savoie,France": [
+      6.389481,
+      45.670841
     ],
-    "ROANNE,Loire,France": [
-      4.070619,
-      46.045837
+    "GERARDMER,Vosges,France": [
+      6.871904,
+      48.072562
     ]
   },
   "routes": {
-    "Rennes,Ille-et-Vilaine,France::HAGETMAU,Landes,France": [
-      620.1344,
-      6.297027777777777
-    ],
-    "Rennes,Ille-et-Vilaine,France::LYON,Rhône,France": [
-      737.906,
-      7.159555555555556
-    ],
-    "Rennes,Ille-et-Vilaine,France::MEAUX,Seine-et-Marne,France": [
-      392.3883,
-      3.947583333333333
-    ],
-    "Rennes,Ille-et-Vilaine,France::CARCASSONNE,Aude,France": [
-      792.1368,
-      7.730277777777777
-    ],
-    "Rennes,Ille-et-Vilaine,France::SAVIGNY,Haute-Savoie,France": [
-      826.1771,
-      7.9021388888888895
+    "Rennes,Ille-et-Vilaine,France::PARIS,Paris,France": [
+      345.9613,
+      3.6182222222222222
     ],
     "Rennes,Ille-et-Vilaine,France::PANAZOL,Haute-Vienne,France": [
       557.638,
       5.348111111111112
     ],
-    "Rennes,Ille-et-Vilaine,France::VERSONNEX,Ain,France": [
-      855.3659,
-      8.177083333333334
+    "Rennes,Ille-et-Vilaine,France::TOURS,Indre-et-Loire,France": [
+      251.3926,
+      2.5523055555555554
     ],
-    "Rennes,Ille-et-Vilaine,France::ALBERTVILLE,Savoie,France": [
-      922.3633,
-      8.63075
-    ],
-    "Rennes,Ille-et-Vilaine,France::GERARDMER,Vosges,France": [
-      740.2297,
-      7.471861111111111
-    ],
-    "Rennes,Ille-et-Vilaine,France::ISSY LES MOULINEAUX,Hauts-de-Seine,France": [
-      341.4687,
-      3.432527777777778
-    ],
-    "Rennes,Ille-et-Vilaine,France::LONS LE SAUNIER,Jura,France": [
-      714.3157,
-      6.778499999999999
-    ],
-    "Rennes,Ille-et-Vilaine,France::LIMOGES,Haute-Vienne,France": [
-      556.3305,
-      5.3525277777777776
-    ],
-    "Rennes,Ille-et-Vilaine,France::CORBAS,Rhône,France": [
-      750.8802,
-      7.341500000000001
-    ],
-    "Rennes,Ille-et-Vilaine,France::SAINT ETIENNE,Loire,France": [
-      715.6202,
-      6.801666666666667
-    ],
-    "Rennes,Ille-et-Vilaine,France::MONTIGNY LE BRETONNEUX,Yvelines,France": [
-      323.5462,
-      3.289916666666667
-    ],
-    "Rennes,Ille-et-Vilaine,France::CEYRESTE,Bouches-du-Rhône,France": [
-      1080.056,
-      10.396027777777777
-    ],
-    "Rennes,Ille-et-Vilaine,France::BAGNERES DE BIGORRE,Hautes-Pyrénées,France": [
-      736.8724,
-      7.2415
+    "Rennes,Ille-et-Vilaine,France::LYON,Rhône,France": [
+      737.906,
+      7.159555555555556
     ],
     "Rennes,Ille-et-Vilaine,France::ORLEANS,Loiret,France": [
       344.947,
       3.457722222222222
     ],
+    "Rennes,Ille-et-Vilaine,France::CARCASSONNE,Aude,France": [
+      792.1368,
+      7.730277777777777
+    ],
     "Rennes,Ille-et-Vilaine,France::BASTIA,Haute-Corse,France": [
       1418.4878,
       18.916611111111113
     ],
-    "Rennes,Ille-et-Vilaine,France::ROANNE,Loire,France": [
-      614.8999,
-      6.410444444444444
+    "Rennes,Ille-et-Vilaine,France::MONTIGNY LE BRETONNEUX,Yvelines,France": [
+      323.5462,
+      3.289916666666667
     ],
-    "Rennes,Ille-et-Vilaine,France::PARIS,Paris,France": [
-      345.9613,
-      3.6182222222222222
+    "Rennes,Ille-et-Vilaine,France::ALBERTVILLE,Savoie,France": [
+      922.3633,
+      8.63075
     ],
     "Rennes,Ille-et-Vilaine,France::GALLARGUES LE MONTUEUX,Gard,France": [
       945.9247,
@@ -214,29 +166,77 @@
       460.5275999999999,
       4.649444444444445
     ],
+    "Rennes,Ille-et-Vilaine,France::ILLE SUR TET,Pyrénées-Orientales,France": [
+      923.5345,
+      8.854138888888889
+    ],
+    "Rennes,Ille-et-Vilaine,France::ISSY LES MOULINEAUX,Hauts-de-Seine,France": [
+      341.4687,
+      3.432527777777778
+    ],
     "Rennes,Ille-et-Vilaine,France::GOURNAY EN BRAY,Seine-Maritime,France": [
       357.43870000000004,
       3.960805555555555
     ],
-    "Rennes,Ille-et-Vilaine,France::TOURS,Indre-et-Loire,France": [
-      251.3926,
-      2.5523055555555554
+    "Rennes,Ille-et-Vilaine,France::LONS LE SAUNIER,Jura,France": [
+      714.3157,
+      6.778499999999999
     ],
-    "Rennes,Ille-et-Vilaine,France::TOULOUSE,Haute-Garonne,France": [
-      698.4434,
-      6.869194444444444
+    "Rennes,Ille-et-Vilaine,France::SAVIGNY,Haute-Savoie,France": [
+      826.1771,
+      7.9021388888888895
+    ],
+    "Rennes,Ille-et-Vilaine,France::BAGNERES DE BIGORRE,Hautes-Pyrénées,France": [
+      736.8724,
+      7.2415
+    ],
+    "Rennes,Ille-et-Vilaine,France::MEAUX,Seine-et-Marne,France": [
+      392.3883,
+      3.947583333333333
     ],
     "Rennes,Ille-et-Vilaine,France::LA CRAU,Var,France": [
       1123.4506,
       10.81063888888889
     ],
-    "Rennes,Ille-et-Vilaine,France::ILLE SUR TET,Pyrénées-Orientales,France": [
-      923.5345,
-      8.854138888888889
+    "Rennes,Ille-et-Vilaine,France::VERSONNEX,Ain,France": [
+      855.3659,
+      8.177083333333334
     ],
     "Rennes,Ille-et-Vilaine,France::SEICHAMPS,Meurthe-et-Moselle,France": [
       734.033,
       7.044333333333333
+    ],
+    "Rennes,Ille-et-Vilaine,France::CEYRESTE,Bouches-du-Rhône,France": [
+      1080.056,
+      10.396027777777777
+    ],
+    "Rennes,Ille-et-Vilaine,France::GERARDMER,Vosges,France": [
+      740.2297,
+      7.471861111111111
+    ],
+    "Rennes,Ille-et-Vilaine,France::TOULOUSE,Haute-Garonne,France": [
+      698.4434,
+      6.869194444444444
+    ],
+    "Rennes,Ille-et-Vilaine,France::LIMOGES,Haute-Vienne,France": [
+      556.3305,
+      5.3525277777777776
+    ],
+    "Rennes,Ille-et-Vilaine,France::CORBAS,Rhône,France": [
+      750.8802,
+      7.341500000000001
+    ],
+    "Rennes,Ille-et-Vilaine,France::ROANNE,Loire,France": [
+      614.8999,
+      6.410444444444444
+    ],
+    "Rennes,Ille-et-Vilaine,France::SAINT ETIENNE,Loire,France": [
+      715.6202,
+      6.801666666666667
+    ],
+    "Rennes,Ille-et-Vilaine,France::HAGETMAU,Landes,France": [
+      620.1344,
+      6.297027777777777
     ]
   }
 }

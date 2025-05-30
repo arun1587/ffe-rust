@@ -1,9 +1,11 @@
 use reqwest::blocking::Client;
 use serde::Deserialize;
 use std::error::Error;
+use futures::executor::block_on;
 
 use super::cache::{GeoCache, CityPairKey};
 use super::geocode::geocode_city;
+use crate::sdk::util::rate_limit::Limiter;
 
 #[derive(Debug,Clone)]
 pub struct RouteSummary {
@@ -27,7 +29,7 @@ struct Summary {
     duration: f64,
 }
 
-pub fn get_road_distance(city1: &str, city2: &str, api_key: &str,cache: &mut GeoCache) -> Result<RouteSummary, Box<dyn Error>> {
+pub fn get_road_distance(city1: &str, city2: &str, api_key: &str,cache: &mut GeoCache,limiter: &Limiter) -> Result<RouteSummary, Box<dyn Error>> {
     let key = CityPairKey {
         origin: city1.to_string(),
         destination: city2.to_string(),
@@ -41,7 +43,10 @@ pub fn get_road_distance(city1: &str, city2: &str, api_key: &str,cache: &mut Geo
         });
     }
 
-    let (lon1, lat1) = match geocode_city(city1, api_key, cache) {
+    // wait to avoid rate limitation from ors
+    block_on(limiter.until_ready());
+
+    let (lon1, lat1) = match geocode_city(city1, api_key, cache, limiter) {
         Ok(coords) => coords,
         Err(e) => {
             log::error!("Failed to geocode city1 '{}': {}", city1, e);
@@ -49,7 +54,7 @@ pub fn get_road_distance(city1: &str, city2: &str, api_key: &str,cache: &mut Geo
         }
     };
 
-    let (lon2, lat2) = match geocode_city(city2, api_key, cache) {
+    let (lon2, lat2) = match geocode_city(city2, api_key, cache, limiter) {
         Ok(coords) => coords,
         Err(e) => {
             log::error!("Failed to geocode city2 '{}': {}", city2, e);

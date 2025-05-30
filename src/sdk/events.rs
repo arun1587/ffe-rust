@@ -12,6 +12,7 @@ use serde::Serialize;
 use super::{
     departments::DepartmentLookup,
     routing::{cache::GeoCache, route::get_road_distance},
+    util::rate_limit::ors_limiter,
 };
 
 
@@ -137,6 +138,7 @@ pub fn filter_reachable_events(
     max_hours: f64,
 ) -> Vec<Event> {
     let mut reachable = Vec::new();
+    let limiter = ors_limiter();
 
     for event in events {
         if let Some(department_name) = lookup.get_name(&event.department) {
@@ -151,7 +153,7 @@ pub fn filter_reachable_events(
                 continue;
             }
 
-            match get_road_distance(origin, &destination, ors_api_key, cache) {
+            match get_road_distance(origin, &destination, ors_api_key, cache, &limiter) {
                 Ok(summary) if summary.duration_hours <= max_hours => {
                     log::debug!(
                         "[REACHABLE] {} at {} ({:.1} km, {:.2} hrs, date={})",

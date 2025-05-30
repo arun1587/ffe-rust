@@ -1,6 +1,8 @@
 use std::error::Error;
 use serde::Deserialize;
 use super::cache::GeoCache;
+use crate::sdk::util::rate_limit::Limiter;
+use futures::executor::block_on;
 
 #[derive(Deserialize)]
 struct GeoResponse {
@@ -19,10 +21,12 @@ struct Geometry {
 
 type Coord = (f64, f64);
 
-pub fn geocode_city(city: &str, api_key: &str,cache: &mut GeoCache) -> Result<Coord, Box<dyn Error>> {
+pub fn geocode_city(city: &str, api_key: &str,cache: &mut GeoCache,limiter: &Limiter) -> Result<Coord, Box<dyn Error>> {
     if let Some(coord) = cache.geocodes.get(city) {
         return Ok(*coord);
     }
+
+    block_on(limiter.until_ready());
 
     let url = format!(
         "https://api.openrouteservice.org/geocode/search?api_key={}&text={}",
