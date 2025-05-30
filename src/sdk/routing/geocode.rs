@@ -34,7 +34,7 @@ pub fn geocode_city(city: &str, api_key: &str,cache: &mut GeoCache) -> Result<Co
     let response = match response {
         Ok(resp) => resp,
         Err(err) => {
-            eprintln!("[ERROR] Failed to send geocoding request: {}", err);
+            log::error!("Failed to send geocoding request for city {}: {}", city, err);
             return Err(Box::new(err));
         }
     };
@@ -43,7 +43,7 @@ pub fn geocode_city(city: &str, api_key: &str,cache: &mut GeoCache) -> Result<Co
     let geo = match geo {
         Ok(g) => g,
         Err(err) => {
-            eprintln!("[ERROR] Failed to parse geocode response: {}", err);
+            log::error!("Failed to parse geocode response for city {}: {}",city, err);
             return Err(Box::new(err));
         }
     };

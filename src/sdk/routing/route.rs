@@ -34,7 +34,7 @@ pub fn get_road_distance(city1: &str, city2: &str, api_key: &str,cache: &mut Geo
     };
 
     if let Some(&(dist, dur)) = cache.routes.get(&key) {
-        println!("[CACHE HIT] {} → {}", city1, city2);
+        log::debug!("[CACHE HIT] {} → {}", city1, city2);
         return Ok(RouteSummary {
             distance_km: dist,
             duration_hours: dur,
@@ -44,7 +44,7 @@ pub fn get_road_distance(city1: &str, city2: &str, api_key: &str,cache: &mut Geo
     let (lon1, lat1) = match geocode_city(city1, api_key, cache) {
         Ok(coords) => coords,
         Err(e) => {
-            println!("[ERROR] Failed to geocode city1 '{}': {}", city1, e);
+            log::error!("Failed to geocode city1 '{}': {}", city1, e);
             return Err(e);
         }
     };
@@ -52,7 +52,7 @@ pub fn get_road_distance(city1: &str, city2: &str, api_key: &str,cache: &mut Geo
     let (lon2, lat2) = match geocode_city(city2, api_key, cache) {
         Ok(coords) => coords,
         Err(e) => {
-            println!("[ERROR] Failed to geocode city2 '{}': {}", city2, e);
+            log::error!("Failed to geocode city2 '{}': {}", city2, e);
             return Err(e);
         }
     };
@@ -65,9 +65,6 @@ pub fn get_road_distance(city1: &str, city2: &str, api_key: &str,cache: &mut Geo
         ]
     });
 
-    println!("[REQUEST] POST {}", url);
-    println!("[BODY] {}", body.to_string());
-
     let client = Client::new();
     let res = client
         .post(url)
@@ -79,7 +76,7 @@ pub fn get_road_distance(city1: &str, city2: &str, api_key: &str,cache: &mut Geo
     let res = match res {
         Ok(resp) => resp,
         Err(e) => {
-            println!("[ERROR] Failed to send request to OpenRouteService: {}", e);
+            log::error!("Failed to send request to OpenRouteService: url={}, body={}: {}", url, body.to_string(), e);
             return Err(Box::new(e));
         }
     };
@@ -87,15 +84,15 @@ pub fn get_road_distance(city1: &str, city2: &str, api_key: &str,cache: &mut Geo
     let text = match res.text() {
         Ok(t) => t,
         Err(e) => {
-            println!("[ERROR] Failed to read response text: {}", e);
+            log::error!("Failed to read response text: url={}, body={}: {}", url, body.to_string(), e);
             return Err(Box::new(e));
         }
     };
 
     // Check if it's an error response
     if text.contains("\"error\"") {
-        println!(
-            "[ERROR] Routing failed for cities: {} → {}\n[RESPONSE] {}",
+        log::error!(
+            "Routing failed for cities: {} → {}\n[RESPONSE] {}",
             city1, city2, text
         );
         return Err(format!("Routing failed for {} → {}", city1, city2).into());
@@ -105,8 +102,8 @@ pub fn get_road_distance(city1: &str, city2: &str, api_key: &str,cache: &mut Geo
     let route: Response = match serde_json::from_str(&text) {
         Ok(r) => r,
         Err(e) => {
-            println!(
-                "[ERROR] Failed to parse JSON response for {} → {}: {}",
+            log::error!(
+                "Failed to parse JSON response for {} → {}: {}",
                 city1, city2, e
             );
             return Err(Box::new(e));

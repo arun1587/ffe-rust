@@ -37,7 +37,7 @@ fn parse_events_from_html(html: &str, month: u32, year: i32,lookup: &DepartmentL
         let tds: Vec<_> = row.select(&td_selector).collect();
 
         if tds.len() < 5 {
-            println!("[DEBUG] Skipping row due to insufficient columns: {} cols", tds.len());
+            log::warn!("Skipping row due to insufficient columns: {} cols", tds.len());
             continue;
         }
 
@@ -53,13 +53,13 @@ fn parse_events_from_html(html: &str, month: u32, year: i32,lookup: &DepartmentL
 
         if let (Ok(start_date), Ok(end_date)) = (start_date, end_date) {
             if (start_date.month() != month && end_date.month() != month) || start_date.year() != year {
-                println!("[DEBUG] Skipping due to date outside specified time: start={} (month {}), end={} (month {}), input month={}, input year={}", 
+                log::warn!("Skipping due to date outside specified time: start={} (month {}), end={} (month {}), input month={}, input year={}", 
                     start_date, start_date.month(), end_date, end_date.month(), month, year);
                 continue;
             }
 
             if !lookup.is_valid_department(&department) {
-                println!("[DEBUG] Skipping event due to unknown department: {}", department);
+                log::warn!("Skipping event due to unknown department: {}", department);
                 continue;
             }
 
@@ -78,7 +78,7 @@ fn parse_events_from_html(html: &str, month: u32, year: i32,lookup: &DepartmentL
                 link,
             });
         } else {
-            println!("[DEBUG] Failed to parse start or end date");
+            log::warn!("Failed to parse start or end date");
         }
     }
 
@@ -99,7 +99,7 @@ pub fn get_upcoming_events_by_region_and_month(month: u32, year: i32,lookup: &De
     };
 
     let mut events = Vec::new();
-    println!("starting from the date={} month={}", day, month);
+    log::info!("starting from the date={} month={}", day, month);
 
     loop {
         match NaiveDate::from_ymd_opt(year, month, day) {
@@ -115,7 +115,7 @@ pub fn get_upcoming_events_by_region_and_month(month: u32, year: i32,lookup: &De
                         events.append(&mut daily_events);
                     }
                     Err(err) => {
-                        println!("[DEBUG] Failed to fetch {}: {}", url, err);
+                        log::error!("Failed to fetch {}: {}", url, err);
                     }
                 }
 
@@ -143,7 +143,7 @@ pub fn filter_reachable_events(
             let destination = format!("{},{},France", event.location, department_name);
 
             if origin.trim().eq_ignore_ascii_case(&destination.trim()) {
-                println!(
+                log::debug!(
                     "[REACHABLE - SAME LOCATION] {} at {} (0.0 km, 0.00 hrs, date={})",
                     event.title, event.location, event.start_date
                 );
@@ -153,7 +153,7 @@ pub fn filter_reachable_events(
 
             match get_road_distance(origin, &destination, ors_api_key, cache) {
                 Ok(summary) if summary.duration_hours <= max_hours => {
-                    println!(
+                    log::debug!(
                         "[REACHABLE] {} at {} ({:.1} km, {:.2} hrs, date={})",
                         event.title, event.location, summary.distance_km, summary.duration_hours, event.start_date
                     );
@@ -164,11 +164,11 @@ pub fn filter_reachable_events(
                     // println!("[TOO FAR] {}", event.title);
                 }
                 Err(err) => {
-                    println!("[ERROR] Distance calc failed for {}: {}", event.title, err);
+                    log::error!("Distance calc failed for {}: {}", event.title, err);
                 }
             }
         } else {
-            println!("[DEBUG] Unknown department: {}", event.department);
+            log::warn!("Unknown department: {}", event.department);
         }
     }
 
