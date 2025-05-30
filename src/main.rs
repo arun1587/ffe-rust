@@ -1,12 +1,14 @@
-// main.rs (final example using the SDK)
 mod sdk;
-use sdk::routing::{cache::GeoCache, route::get_road_distance};
-use sdk::{events::get_upcoming_events_by_region_and_month,config::get_ors_api_key};
-use std::env;
-use std::error::Error;
-use sdk::departments::DepartmentLookup;
-use std::fs::File;
-use std::io::Write;
+
+use sdk::{
+    config::get_ors_api_key,
+    departments::DepartmentLookup,
+    events::{get_upcoming_events_by_region_and_month, filter_reachable_events},
+    routing::cache::GeoCache,
+};
+
+use std::{env, error::Error, fs::File, io::Write};
+
 use serde_json;
 
 fn main() -> Result<(), Box<dyn Error>> {
@@ -25,46 +27,13 @@ fn main() -> Result<(), Box<dyn Error>> {
     let api_key = get_ors_api_key()?;
     let lookup = DepartmentLookup::from_csv("src/departments.csv")?;
 
-    let origin = if let Some(department_name) = lookup.get_name(&department) {
-        format!("{},{},France", city, department_name)
-    } else {
-        println!("Unknown origin department: {}", department);
-        return Err("Unknown origin department".into());
-    };
+    let origin = lookup.origin_from(&city, &department)
+    .ok_or("Unknown origin department")?;
 
     let events = get_upcoming_events_by_region_and_month(month, year, &lookup)?;
-    let mut reachable_events = Vec::new();
-
-    // Initialize cache
     let mut cache = GeoCache::load_from_file("cache.json")?;
-
-    for event in events {
-        if let Some(department_name) = lookup.get_name(&event.department) {
-            let event_location = format!("{},{},France", event.location,department_name);
-            if origin.trim().eq_ignore_ascii_case(&event_location.trim()) {
-                println!(
-                    "[REACHABLE - SAME LOCATION] {} at {} (0.0 km, 0.00 hrs, date={})",
-                    event.title, event.location, event.start_date
-                );
-                reachable_events.push(event);
-            } else if let Ok(summary) = get_road_distance(&origin, &event_location, &api_key, &mut cache) {
-                if summary.duration_hours <= 2.0 {
-                    println!("[REACHABLE] {} at {} ({:.1} km, {:.2} hrs, date={})",
-                             event.title, event.location, summary.distance_km, summary.duration_hours, event.start_date);
-                    reachable_events.push(event);
-                } else {
-                    // println!("[TOO FAR] {} at {} ({:.1} km, {:.2} hrs)",
-                    //          event.title, event.location, summary.distance_km, summary.duration_hours);
-                }
-            } else {
-                println!("[ERROR] Failed to calculate distance to event at {}", event.location);
-            }
-        } else {
-            println!("Unknown department: {}", event.department);
-        }
-        // save the updated cache to the file
-        cache.save_to_file("cache.json")?;
-    }
+    let reachable_events = filter_reachable_events(&origin, &events, &lookup, &mut cache, &api_key, 2.0);
+    cache.save_to_file("cache.json")?;
 
     println!("\n{} events are reachable within 2 hours.", reachable_events.len());
     let json = serde_json::to_string_pretty(&reachable_events)?;

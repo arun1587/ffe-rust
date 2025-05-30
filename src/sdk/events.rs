@@ -1,11 +1,19 @@
 // SDK for querying French Chess Federation events by region
-use reqwest::blocking::Client;
-use reqwest::header::{USER_AGENT, HeaderMap};
-use scraper::{Html, Selector};
-use chrono::{NaiveDate, Datelike, Local};
 use std::error::Error;
-use super::departments::DepartmentLookup;
+
+use chrono::{Datelike, Local, NaiveDate};
+use reqwest::{
+    blocking::Client,
+    header::{HeaderMap, USER_AGENT},
+};
+use scraper::{Html, Selector};
 use serde::Serialize;
+
+use super::{
+    departments::DepartmentLookup,
+    routing::{cache::GeoCache, route::get_road_distance},
+};
+
 
 #[derive(Debug, Clone, Serialize)]
 pub struct Event {
@@ -118,4 +126,51 @@ pub fn get_upcoming_events_by_region_and_month(month: u32, year: i32,lookup: &De
     }
 
     Ok(events)
+}
+
+pub fn filter_reachable_events(
+    origin: &str,
+    events: &[Event],
+    lookup: &DepartmentLookup,
+    cache: &mut GeoCache,
+    ors_api_key: &str,
+    max_hours: f64,
+) -> Vec<Event> {
+    let mut reachable = Vec::new();
+
+    for event in events {
+        if let Some(department_name) = lookup.get_name(&event.department) {
+            let destination = format!("{},{},France", event.location, department_name);
+
+            if origin.trim().eq_ignore_ascii_case(&destination.trim()) {
+                println!(
+                    "[REACHABLE - SAME LOCATION] {} at {} (0.0 km, 0.00 hrs, date={})",
+                    event.title, event.location, event.start_date
+                );
+                reachable.push(event.clone());
+                continue;
+            }
+
+            match get_road_distance(origin, &destination, ors_api_key, cache) {
+                Ok(summary) if summary.duration_hours <= max_hours => {
+                    println!(
+                        "[REACHABLE] {} at {} ({:.1} km, {:.2} hrs, date={})",
+                        event.title, event.location, summary.distance_km, summary.duration_hours, event.start_date
+                    );
+                    reachable.push(event.clone());
+                }
+                Ok(_) => {
+                    // Too far
+                    // println!("[TOO FAR] {}", event.title);
+                }
+                Err(err) => {
+                    println!("[ERROR] Distance calc failed for {}: {}", event.title, err);
+                }
+            }
+        } else {
+            println!("[DEBUG] Unknown department: {}", event.department);
+        }
+    }
+
+    reachable
 }

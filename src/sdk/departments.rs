@@ -29,4 +29,9 @@ impl DepartmentLookup {
     pub fn is_valid_department(&self, number: &str) -> bool {
         self.departments.contains_key(number)
     }
+
+    pub fn origin_from(&self, city: &str, dept_code: &str) -> Option<String> {
+        self.get_name(dept_code)
+            .map(|dept_name| format!("{},{},France", city, dept_name))
+    }
 }

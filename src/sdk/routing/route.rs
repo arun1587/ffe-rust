@@ -1,8 +1,8 @@
 use reqwest::blocking::Client;
 use serde::Deserialize;
 use std::error::Error;
-use super::cache::GeoCache;
-use super::cache::CityPairKey;
+
+use super::cache::{GeoCache, CityPairKey};
 use super::geocode::geocode_city;
 
 #[derive(Debug,Clone)]

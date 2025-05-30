@@ -1,13 +1,14 @@
 use serde::{Deserialize, Serialize};
 use std::{
     collections::HashMap,
+    fmt,
     fs,
     hash::Hash,
     io::Result as IoResult,
     path::Path,
+    str::FromStr,
 };
-use std::fmt;
-use std::str::FromStr;
+
 
 #[derive(Serialize, Deserialize, Eq, PartialEq, Hash)]
 pub struct CityPairKey {
