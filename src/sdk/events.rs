@@ -5,9 +5,9 @@ use scraper::{Html, Selector};
 use chrono::{NaiveDate, Datelike, Local};
 use std::error::Error;
 use super::departments::DepartmentLookup;
+use serde::Serialize;
 
-
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, Serialize)]
 pub struct Event {
     pub title: String,
     pub department: String,

@@ -5,6 +5,9 @@ use sdk::{events::get_upcoming_events_by_region_and_month,config::get_ors_api_ke
 use std::env;
 use std::error::Error;
 use sdk::departments::DepartmentLookup;
+use std::fs::File;
+use std::io::Write;
+use serde_json;
 
 fn main() -> Result<(), Box<dyn Error>> {
     let args: Vec<String> = env::args().collect();
@@ -33,13 +36,18 @@ fn main() -> Result<(), Box<dyn Error>> {
     let mut reachable_events = Vec::new();
 
     // Initialize cache
-    // let mut cache = GeoCache::default();
     let mut cache = GeoCache::load_from_file("cache.json")?;
 
     for event in events {
         if let Some(department_name) = lookup.get_name(&event.department) {
-            let event_location = format!("{},{},France", department_name, event.location);
-            if let Ok(summary) = get_road_distance(&origin, &event_location, &api_key, &mut cache) {
+            let event_location = format!("{},{},France", event.location,department_name);
+            if origin.trim().eq_ignore_ascii_case(&event_location.trim()) {
+                println!(
+                    "[REACHABLE - SAME LOCATION] {} at {} (0.0 km, 0.00 hrs, date={})",
+                    event.title, event.location, event.start_date
+                );
+                reachable_events.push(event);
+            } else if let Ok(summary) = get_road_distance(&origin, &event_location, &api_key, &mut cache) {
                 if summary.duration_hours <= 2.0 {
                     println!("[REACHABLE] {} at {} ({:.1} km, {:.2} hrs, date={})",
                              event.title, event.location, summary.distance_km, summary.duration_hours, event.start_date);
@@ -59,5 +67,9 @@ fn main() -> Result<(), Box<dyn Error>> {
     }
 
     println!("\n{} events are reachable within 2 hours.", reachable_events.len());
+    let json = serde_json::to_string_pretty(&reachable_events)?;
+    let mut file = File::create("reachable_events.json")?;
+    file.write_all(json.as_bytes())?;
+    println!("✅ Reachable events written to reachable_events.json");
     Ok(())
 }
