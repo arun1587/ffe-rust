@@ -29,7 +29,7 @@ fn main() -> Result<(), Box<dyn Error>> {
         return Err("Unknown origin department".into());
     };
 
-    let events = get_upcoming_events_by_region_and_month(month, year)?;
+    let events = get_upcoming_events_by_region_and_month(month, year, &lookup)?;
     let mut reachable_events = Vec::new();
 
     // Initialize cache

@@ -2,8 +2,9 @@
 use reqwest::blocking::Client;
 use reqwest::header::{USER_AGENT, HeaderMap};
 use scraper::{Html, Selector};
-use chrono::{NaiveDate, Datelike};
+use chrono::{NaiveDate, Datelike, Local};
 use std::error::Error;
+use super::departments::DepartmentLookup;
 
 
 #[derive(Debug, Clone)]
@@ -16,7 +17,7 @@ pub struct Event {
     pub link: String,
 }
 
-fn parse_events_from_html(html: &str, month: u32, year: i32) -> Result<Vec<Event>, Box<dyn Error>> {
+fn parse_events_from_html(html: &str, month: u32, year: i32,lookup: &DepartmentLookup) -> Result<Vec<Event>, Box<dyn Error>> {
     let document = Html::parse_document(html);
     let row_selector = Selector::parse("tr.liste_clair, tr.liste_fonce").unwrap();
     let td_selector = Selector::parse("td").unwrap();
@@ -49,6 +50,11 @@ fn parse_events_from_html(html: &str, month: u32, year: i32) -> Result<Vec<Event
                 continue;
             }
 
+            if !lookup.is_valid_department(&department) {
+                println!("[DEBUG] Skipping event due to unknown department: {}", department);
+                continue;
+            }
+
             let link = title_elem.select(&a_selector)
                 .next()
                 .and_then(|a| a.value().attr("href"))
@@ -72,13 +78,20 @@ fn parse_events_from_html(html: &str, month: u32, year: i32) -> Result<Vec<Event
 }
 
 
-pub fn get_upcoming_events_by_region_and_month(month: u32, year: i32) -> Result<Vec<Event>, Box<dyn Error>> {
+pub fn get_upcoming_events_by_region_and_month(month: u32, year: i32,lookup: &DepartmentLookup) -> Result<Vec<Event>, Box<dyn Error>> {
     let client = Client::new();
     let mut headers = HeaderMap::new();
     headers.insert(USER_AGENT, "Mozilla/5.0".parse().unwrap());
 
-    let mut day = 1;
+    let today = Local::now().naive_local().date(); // get today's date
+    let mut day = if today.year() == year && today.month() == month {
+        today.day()
+    } else {
+        1
+    };
+
     let mut events = Vec::new();
+    println!("starting from the date={} month={}", day, month);
 
     loop {
         match NaiveDate::from_ymd_opt(year, month, day) {
@@ -86,12 +99,11 @@ pub fn get_upcoming_events_by_region_and_month(month: u32, year: i32) -> Result<
                 let date_string = format!("{:02}/{:02}/{}", date.day(), date.month(), date.year());
                 let url = format!("https://www.echecs.asso.fr/Calendrier.aspx?jour={}", date_string);
                 let res = client.get(&url).headers(headers.clone()).send();
-
                 match res {
                     Ok(response) => {
                         let html = response.text()?;
 
-                        let mut daily_events = parse_events_from_html(&html, month, year)?;
+                        let mut daily_events = parse_events_from_html(&html, month, year,lookup)?;
                         events.append(&mut daily_events);
                     }
                     Err(err) => {

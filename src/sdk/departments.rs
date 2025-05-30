@@ -25,4 +25,8 @@ impl DepartmentLookup {
     pub fn get_name(&self, number: &str) -> Option<&String> {
         self.departments.get(number)
     }
+
+    pub fn is_valid_department(&self, number: &str) -> bool {
+        self.departments.contains_key(number)
+    }
 }
