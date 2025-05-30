@@ -56,3 +56,23 @@ pub fn geocode_city(city: &str, api_key: &str,cache: &mut GeoCache,limiter: &Lim
     cache.geocodes.insert(city.to_string(), coord);
     Ok(coord)
 }
+
+pub fn get_routable_coordinates(lon: f64, lat: f64, api_key: &str) -> Result<(f64, f64), Box<dyn Error>> {
+    let url = format!(
+        "https://api.openrouteservice.org/geocode/reverse?point.lon={}&point.lat={}&api_key={}",
+        lon, lat, api_key
+    );
+
+    let response = reqwest::blocking::get(&url)?;
+    let body: serde_json::Value = response.json()?;
+
+    if let Some(coord) = body["features"].get(0).and_then(|f| f["geometry"]["coordinates"].as_array()) {
+        if coord.len() == 2 {
+            let lon = coord[0].as_f64().unwrap_or(lon);
+            let lat = coord[1].as_f64().unwrap_or(lat);
+            return Ok((lon, lat));
+        }
+    }
+
+    Err("No routable point found".into())
+}

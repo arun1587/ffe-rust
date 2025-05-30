@@ -60,7 +60,7 @@ fn parse_events_from_html(html: &str, month: u32, year: i32,lookup: &DepartmentL
             }
 
             if !lookup.is_valid_department(&department) {
-                log::warn!("Skipping event due to unknown department: {}", department);
+                log::debug!("Skipping event due to unknown department: {}", department);
                 continue;
             }
 
@@ -139,6 +139,8 @@ pub fn filter_reachable_events(
 ) -> Vec<Event> {
     let mut reachable = Vec::new();
     let limiter = ors_limiter();
+
+    log::info!("Total events collected from the ffe {}", events.len());
 
     for event in events {
         if let Some(department_name) = lookup.get_name(&event.department) {
