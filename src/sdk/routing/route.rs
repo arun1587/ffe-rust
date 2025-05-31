@@ -1,11 +1,10 @@
-use reqwest::blocking::Client;
 use serde::Deserialize;
 use std::error::Error;
 use futures::executor::block_on;
-use super::cache::{GeoCache, CityPairKey};
+use crate::sdk::routing::cache::{GeoCache, CityPairKey};
+use crate::sdk::util::rate_limit::Limiter;
 use super::geocode::geocode_city;
 use crate::sdk::routing::geocode::get_routable_coordinates;
-use crate::sdk::util::rate_limit::Limiter;
 
 #[derive(Debug,Clone)]
 pub struct RouteSummary {
@@ -50,7 +49,8 @@ pub fn get_road_distance(city1: &str, city2: &str, api_key: &str,cache: &mut Geo
     let (mut lon2, mut lat2) = geocode_city(city2, api_key, cache, limiter)?;
 
     let url = "https://api.openrouteservice.org/v2/directions/driving-car";
-    let client = Client::new();
+    let client = reqwest::blocking::Client::new();
+
 
     let mut attempt = 0;
     let max_attempts = 2;

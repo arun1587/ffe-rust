@@ -1,10 +1,9 @@
 use std::error::Error;
 use serde::Deserialize;
-use super::cache::GeoCache;
+use crate::sdk::routing::cache::GeoCache;
 use crate::sdk::util::rate_limit::Limiter;
 use futures::executor::block_on;
 use serde_json::json;
-use reqwest::blocking::Client;
 
 #[derive(Deserialize)]
 struct GeoResponse {
@@ -96,7 +95,7 @@ pub fn get_routable_coordinates(lon: f64, lat: f64, api_key: &str) -> Result<(f6
 
 
 fn is_routable(coord: (f64, f64), api_key: &str) -> bool {
-    let client = Client::new();
+    let client = reqwest::blocking::Client::new();
     let url = "https://api.openrouteservice.org/v2/directions/driving-car";
 
     let body = json!({
