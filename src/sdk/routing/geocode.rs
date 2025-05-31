@@ -45,11 +45,18 @@ pub fn geocode_city(city: &str, api_key: &str,cache: &mut GeoCache,limiter: &Lim
         }
     };
 
-    let geo = response.json::<GeoResponse>();
+    let body = response.text()?;
+    let geo: Result<GeoResponse, _> = serde_json::from_str(&body);
+
     let geo = match geo {
         Ok(g) => g,
         Err(err) => {
-            log::error!("Failed to parse geocode response for city {}: {}",city, err);
+            log::error!(
+                "Failed to parse geocode response for city {}: {}\n[RESPONSE BODY]: {}",
+                city,
+                err,
+                body
+            );
             return Err(Box::new(err));
         }
     };
