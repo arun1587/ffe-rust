@@ -2,7 +2,6 @@ use reqwest::blocking::Client;
 use serde::Deserialize;
 use std::error::Error;
 use futures::executor::block_on;
-
 use super::cache::{GeoCache, CityPairKey};
 use super::geocode::geocode_city;
 use crate::sdk::routing::geocode::get_routable_coordinates;
@@ -105,8 +104,6 @@ pub fn get_road_distance(city1: &str, city2: &str, api_key: &str,cache: &mut Geo
             .lon1={} lat1={} lon2={} lat2={}",lon1, lat1,lon2,lat2);
             (lon1, lat1) = get_routable_coordinates(lon1, lat1, api_key)?;
             (lon2, lat2) = get_routable_coordinates(lon2, lat2, api_key)?;
-            log::warn!("snap to routable. Trying snapped coordinates via reverse geocoding.
-            .lon1={} lat1={} lon2={} lat2={}",lon1, lat1,lon2,lat2);
         } else {
             log::error!(
                 "Routing failed for cities: {} → {}\n[RESPONSE] {}\n [Cord] [{},{}] → [{},{}]",
