@@ -3,7 +3,7 @@ use std::error::Error;
 
 use chrono::{Datelike, Local, NaiveDate};
 use reqwest::{
-    blocking::Client,
+    Client,
     header::{HeaderMap, USER_AGENT},
 };
 use scraper::{Html, Selector};
@@ -12,7 +12,6 @@ use serde::Serialize;
 use super::{
     departments::DepartmentLookup,
     routing::{cache::GeoCache, route::get_road_distance},
-    util::rate_limit::ors_limiter,
 };
 
 
@@ -87,7 +86,7 @@ fn parse_events_from_html(html: &str, month: u32, year: i32,lookup: &DepartmentL
 }
 
 
-pub fn get_upcoming_events_by_region_and_month(month: u32, year: i32,lookup: &DepartmentLookup) -> Result<Vec<Event>, Box<dyn Error>> {
+pub async fn get_upcoming_events_by_region_and_month(month: u32, year: i32,lookup: &DepartmentLookup) -> Result<Vec<Event>, Box<dyn Error>> {
     let client = Client::new();
     let mut headers = HeaderMap::new();
     headers.insert(USER_AGENT, "Mozilla/5.0".parse().unwrap());
@@ -107,10 +106,10 @@ pub fn get_upcoming_events_by_region_and_month(month: u32, year: i32,lookup: &De
             Some(date) => {
                 let date_string = format!("{:02}/{:02}/{}", date.day(), date.month(), date.year());
                 let url = format!("https://www.echecs.asso.fr/Calendrier.aspx?jour={}", date_string);
-                let res = client.get(&url).headers(headers.clone()).send();
+                let res = client.get(&url).headers(headers.clone()).send().await;
                 match res {
                     Ok(response) => {
-                        let html = response.text()?;
+                        let html = response.text().await?;
 
                         let mut daily_events = parse_events_from_html(&html, month, year,lookup)?;
                         events.append(&mut daily_events);
@@ -129,7 +128,7 @@ pub fn get_upcoming_events_by_region_and_month(month: u32, year: i32,lookup: &De
     Ok(events)
 }
 
-pub fn filter_reachable_events(
+pub async fn filter_reachable_events(
     origin: &str,
     events: &[Event],
     lookup: &DepartmentLookup,
@@ -138,8 +137,8 @@ pub fn filter_reachable_events(
     max_hours: f64,
 ) -> Vec<Event> {
     let mut reachable = Vec::new();
-    let limiter = ors_limiter();
 
+    let client = Client::new();
     log::info!("Total events collected from the ffe {}", events.len());
 
     for event in events {
@@ -155,7 +154,7 @@ pub fn filter_reachable_events(
                 continue;
             }
 
-            match get_road_distance(origin, &destination, ors_api_key, cache, &limiter) {
+            match get_road_distance(origin, &destination, ors_api_key, cache, &client).await {
                 Ok(summary) if summary.duration_hours <= max_hours => {
                     log::debug!(
                         "[REACHABLE] {} at {} ({:.1} km, {:.2} hrs, date={})",

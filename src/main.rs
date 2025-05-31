@@ -11,7 +11,8 @@ use std::{env, error::Error, fs::File, io::Write};
 
 use serde_json;
 
-fn main() -> Result<(), Box<dyn Error>> {
+#[tokio::main]
+async fn main() -> Result<(), Box<dyn Error>> {
     init_logging();
     let args: Vec<String> = env::args().collect();
 
@@ -31,9 +32,9 @@ fn main() -> Result<(), Box<dyn Error>> {
     let origin = lookup.origin_from(&city, &department)
     .ok_or("Unknown origin department")?;
 
-    let events = get_upcoming_events_by_region_and_month(month, year, &lookup)?;
+    let events = get_upcoming_events_by_region_and_month(month, year, &lookup).await?;
     let mut cache = GeoCache::load_from_file("cache.json")?;
-    let reachable_events = filter_reachable_events(&origin, &events, &lookup, &mut cache, &api_key, 2.0);
+    let reachable_events = filter_reachable_events(&origin, &events, &lookup, &mut cache, &api_key, 2.0).await;
     cache.save_to_file("cache.json")?;
 
     log::info!("{} events are reachable within 2 hours.", reachable_events.len());

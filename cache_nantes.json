@@ -1,0 +1,1506 @@
+{
+  "geocodes": {
+    "MEAUX,Seine-et-Marne,France": [
+      2.884664,
+      48.958136
+    ],
+    "LE PASSAGE,Lot-et-Garonne,France": [
+      0.600724,
+      44.189659
+    ],
+    "MONT DE MARSAN,Landes,France": [
+      -0.488543,
+      43.891649
+    ],
+    "MASSY,Essonne,France": [
+      2.271527,
+      48.727853
+    ],
+    "VILLEREAL,Lot-et-Garonne,France": [
+      0.74535,
+      44.637487
+    ],
+    "REIMS,Marne,France": [
+      4.035785,
+      49.253684
+    ],
+    "FOUESNANT,Finistère,France": [
+      -4.015436,
+      47.893733
+    ],
+    "ERMONT,Val-d'Oise,France": [
+      2.255152,
+      48.989589
+    ],
+    "BONCHAMP LES LAVAL,Mayenne,France": [
+      -0.700201,
+      48.074628
+    ],
+    "SARREGUEMINES,Moselle,France": [
+      7.064174,
+      49.108048
+    ],
+    "SAINT TROPEZ,Var,France": [
+      6.639784,
+      43.267089
+    ],
+    "VANDOEUVRE LES NANCY,Meurthe-et-Moselle,France": [
+      6.176937,
+      48.661642
+    ],
+    "KINTZHEIM,Bas-Rhin,France": [
+      7.397841,
+      48.253443
+    ],
+    "OYE PLAGE,Pas-de-Calais,France": [
+      2.04238,
+      50.976436
+    ],
+    "BASTIA,Haute-Corse,France": [
+      9.448058,
+      42.703379
+    ],
+    "VILLARD DE LANS,Isère,France": [
+      5.556273,
+      45.071752
+    ],
+    "MAGNY LES HAMEAUX,Yvelines,France": [
+      2.059118,
+      48.742745
+    ],
+    "PLEBOULLE,Côtes-d'Armor,France": [
+      -2.33781,
+      48.60853
+    ],
+    "CREPY EN VALOIS,Oise,France": [
+      2.888188,
+      49.229881
+    ],
+    "AVALLON,Yonne,France": [
+      3.91118,
+      47.493063
+    ],
+    "NORGES LA VILLE,Côte-d'Or,France": [
+      5.078039,
+      47.407882
+    ],
+    "BEAUVAIS,Oise,France": [
+      2.087193,
+      49.434164
+    ],
+    "GRANDE SYNTHE,Nord,France": [
+      2.293452,
+      51.007351
+    ],
+    "PESSAC,Gironde,France": [
+      -0.648183,
+      44.795921
+    ],
+    "TOULON,Var,France": [
+      5.944017,
+      43.122765
+    ],
+    "MEYREUIL,Bouches-du-Rhône,France": [
+      5.495658,
+      43.487789
+    ],
+    "SAINT MANDE,Val-de-Marne,France": [
+      2.417782,
+      48.841524
+    ],
+    "SAINT ETIENNE,Loire,France": [
+      4.397111,
+      45.438474
+    ],
+    "LE VESINET,Yvelines,France": [
+      2.130619,
+      48.894522
+    ],
+    "MONTBRON,Charente,France": [
+      0.500659,
+      45.665627
+    ],
+    "VIC EN BIGORRE,Hautes-Pyrénées,France": [
+      0.051024,
+      43.384938
+    ],
+    "VILLEFRANCHE SUR SAONE,Rhône,France": [
+      4.729565,
+      45.989283
+    ],
+    "BENNWIHR,Haut-Rhin,France": [
+      7.320506,
+      48.151393
+    ],
+    "LILLE,Nord,France": [
+      3.059524,
+      50.632786
+    ],
+    "MACON,Saône-et-Loire,France": [
+      4.823162,
+      46.305919
+    ],
+    "MUNCHHAUSEN,Bas-Rhin,France": [
+      8.154186,
+      48.918527
+    ],
+    "ELANCOURT,Yvelines,France": [
+      1.961878,
+      48.77106
+    ],
+    "BRAS,Var,France": [
+      5.957103,
+      43.47097
+    ],
+    "PRAYSSAC,Lot,France": [
+      1.196648,
+      44.484209
+    ],
+    "PAU,Pyrénées-Atlantiques,France": [
+      -0.352943,
+      43.312063
+    ],
+    "GROSSETO PRUGNA,Corse-du-Sud,France": [
+      8.84814,
+      41.880051
+    ],
+    "LIMOGES,Haute-Vienne,France": [
+      1.260181,
+      45.837735
+    ],
+    "ANNEMASSE,Haute-Savoie,France": [
+      6.24563,
+      46.184032
+    ],
+    "LA CHARITE SUR LOIRE,Nièvre,France": [
+      3.018885,
+      47.179814
+    ],
+    "SAINT MARTIN DU TERTRE,Val-d'Oise,France": [
+      2.334324,
+      49.105309
+    ],
+    "VOUZIERS,Ardennes,France": [
+      4.705958,
+      49.419411
+    ],
+    "COUBLEVIE,Isère,France": [
+      5.607496,
+      45.355427
+    ],
+    "SOUEIX ROGALLE,Ariège,France": [
+      1.211843,
+      42.894219
+    ],
+    "SAINT MARTIN D'HERES,Isère,France": [
+      5.760013,
+      45.185812
+    ],
+    "BORDEAUX,Gironde,France": [
+      -0.570437,
+      44.842411
+    ],
+    "SAINT MALO,Ille-et-Vilaine,France": [
+      -1.999475,
+      48.639776
+    ],
+    "CARQUEFOU,Loire-Atlantique,France": [
+      -1.492943,
+      47.291884
+    ],
+    "MEXIMIEUX,Ain,France": [
+      5.193388,
+      45.908193
+    ],
+    "TRELAZE,Maine-et-Loire,France": [
+      -0.49679,
+      47.44743
+    ],
+    "BRIVE LA GAILLARDE,Corrèze,France": [
+      1.500454,
+      45.156197
+    ],
+    "SAVIGNY,Haute-Savoie,France": [
+      5.951708,
+      46.06942
+    ],
+    "TOURS,Indre-et-Loire,France": [
+      0.689776,
+      47.386419
+    ],
+    "MONTIGNY LE BRETONNEUX,Yvelines,France": [
+      2.033196,
+      48.772896
+    ],
+    "THIONVILLE,Moselle,France": [
+      6.160111,
+      49.362024
+    ],
+    "SOORTS HOSSEGOR,Landes,France": [
+      -1.39717,
+      43.6649
+    ],
+    "COLOMIERS,Haute-Garonne,France": [
+      1.328856,
+      43.608905
+    ],
+    "CAMBRAI,Nord,France": [
+      3.242037,
+      50.172896
+    ],
+    "EVIAN LES BAINS,Haute-Savoie,France": [
+      6.582789,
+      46.393091
+    ],
+    "THYEZ,Haute-Savoie,France": [
+      6.536839,
+      46.077246
+    ],
+    "NANCY,Meurthe-et-Moselle,France": [
+      6.178289,
+      48.690303
+    ],
+    "TRIEL SUR SEINE,Yvelines,France": [
+      2.00866,
+      48.977604
+    ],
+    "LUANT,Indre,France": [
+      1.558438,
+      46.73308
+    ],
+    "SAINT JEAN PLA DE CORTS,Pyrénées-Orientales,France": [
+      2.791808,
+      42.51164
+    ],
+    "CORBAS,Rhône,France": [
+      4.912738,
+      45.67806
+    ],
+    "MONTREUIL,Seine-Saint-Denis,France": [
+      2.448297,
+      48.864158
+    ],
+    "CANNES,Alpes-Maritimes,France": [
+      7.003061,
+      43.557963
+    ],
+    "BAYONNE,Pyrénées-Atlantiques,France": [
+      -1.475394,
+      43.493728
+    ],
+    "CLAMART,Hauts-de-Seine,France": [
+      2.26558,
+      48.805261
+    ],
+    "VERRIERES,Aube,France": [
+      4.14906,
+      48.234524
+    ],
+    "SASSENAGE,Isère,France": [
+      5.662774,
+      45.214549
+    ],
+    "GRENOBLE,Isère,France": [
+      5.718545,
+      45.177879
+    ],
+    "VILLARS LES DOMBES,Ain,France": [
+      5.032769,
+      46.002379
+    ],
+    "SAINT MAIXENT L'ECOLE,Deux-Sèvres,France": [
+      -0.326149,
+      46.560793
+    ],
+    "PERPIGNAN,Pyrénées-Orientales,France": [
+      2.893311,
+      42.696748
+    ],
+    "ISSY LES MOULINEAUX,Hauts-de-Seine,France": [
+      2.264404,
+      48.823024
+    ],
+    "MULHOUSE,Haut-Rhin,France": [
+      7.330118,
+      47.750059
+    ],
+    "SAVIGNY SUR ORGE,Essonne,France": [
+      2.3504,
+      48.683466
+    ],
+    "GOND PONTOUVRE,Charente,France": [
+      0.16667,
+      45.68333
+    ],
+    "QUIMPERLE,Finistère,France": [
+      -3.554068,
+      47.8707
+    ],
+    "LIFFRE,Ille-et-Vilaine,France": [
+      -1.508262,
+      48.211997
+    ],
+    "ARCONNAY,Sarthe,France": [
+      0.090676,
+      48.40853
+    ],
+    "MARAUSSAN,Hérault,France": [
+      3.155776,
+      43.370523
+    ],
+    "CHAUNY,Aisne,France": [
+      3.220035,
+      49.616243
+    ],
+    "HUNINGUE,Haut-Rhin,France": [
+      7.582547,
+      47.591925
+    ],
+    "MONTELIMAR,Drôme,France": [
+      4.747181,
+      44.552119
+    ],
+    "CHARTRES,Eure-et-Loir,France": [
+      1.489783,
+      48.444595
+    ],
+    "YSSINGEAUX,Haute-Loire,France": [
+      4.125072,
+      45.139849
+    ],
+    "SAINT JUST EN CHAUSSEE,Oise,France": [
+      2.432614,
+      49.505736
+    ],
+    "YERRES,Essonne,France": [
+      2.488831,
+      48.711314
+    ],
+    "ARCUEIL,Val-de-Marne,France": [
+      2.334599,
+      48.806082
+    ],
+    "CLERMONT FERRAND,Puy-de-Dôme,France": [
+      3.114432,
+      45.784832
+    ],
+    "LONS LE SAUNIER,Jura,France": [
+      5.555609,
+      46.673817
+    ],
+    "ALTHEN DES PALUDS,Vaucluse,France": [
+      4.956846,
+      44.003214
+    ],
+    "BERNOT,Aisne,France": [
+      3.498602,
+      49.869119
+    ],
+    "ORANGE,Vaucluse,France": [
+      4.815958,
+      44.133811
+    ],
+    "LA CRAU,Var,France": [
+      6.075428,
+      43.149755
+    ],
+    "CEYRESTE,Bouches-du-Rhône,France": [
+      5.636393,
+      43.197325
+    ],
+    "SUIPPES,Marne,France": [
+      4.534012,
+      49.129116
+    ],
+    "DRAGUIGNAN,Var,France": [
+      6.474808,
+      43.534172
+    ],
+    "MONTBELIARD,Doubs,France": [
+      6.800526,
+      47.50807
+    ],
+    "LA ROCHELLE,Charente-Maritime,France": [
+      -1.145036,
+      46.162651
+    ],
+    "VALDOIE,Territoire de Belfort,France": [
+      6.842633,
+      47.666152
+    ],
+    "GRANVILLE,Manche,France": [
+      -1.587528,
+      48.838364
+    ],
+    "SUCE SUR ERDRE,Loire-Atlantique,France": [
+      -1.523345,
+      47.340035
+    ],
+    "CARQUEIRANNE,Var,France": [
+      6.075908,
+      43.096953
+    ],
+    "CARCASSONNE,Aude,France": [
+      2.350625,
+      43.217405
+    ],
+    "AUBERVILLIERS,Seine-Saint-Denis,France": [
+      2.384788,
+      48.910939
+    ],
+    "VILLENEUVE SUR LOT,Lot-et-Garonne,France": [
+      0.709601,
+      44.407233
+    ],
+    "LONGUENESSE,Pas-de-Calais,France": [
+      2.245478,
+      50.741986
+    ],
+    "SAINTE ANNE D'AURAY,Morbihan,France": [
+      -2.66389,
+      47.9108
+    ],
+    "HYERES,Var,France": [
+      6.128301,
+      43.118543
+    ],
+    "GRASSE,Alpes-Maritimes,France": [
+      6.925365,
+      43.657605
+    ],
+    "PANTIN,Seine-Saint-Denis,France": [
+      2.406974,
+      48.898752
+    ],
+    "YFFINIAC,Côtes-d'Armor,France": [
+      -2.669518,
+      48.481574
+    ],
+    "NARBONNE,Aude,France": [
+      3.000762,
+      43.183489
+    ],
+    "BAGNERES DE BIGORRE,Hautes-Pyrénées,France": [
+      0.151411,
+      43.068112
+    ],
+    "VIROFLAY,Yvelines,France": [
+      2.171283,
+      48.806523
+    ],
+    "CHATEAU GONTIER,Mayenne,France": [
+      -0.709607,
+      47.824602
+    ],
+    "BESANCON,Doubs,France": [
+      6.012901,
+      47.246152
+    ],
+    "LAVERUNE,Hérault,France": [
+      3.802855,
+      43.587383
+    ],
+    "ALBI,Tarn,France": [
+      2.152416,
+      43.926997
+    ],
+    "BRISSAC,Hérault,France": [
+      3.701414,
+      43.867196
+    ],
+    "PLOERMEL,Morbihan,France": [
+      -2.397724,
+      47.930352
+    ],
+    "SEICHAMPS,Meurthe-et-Moselle,France": [
+      6.263127,
+      48.714304
+    ],
+    "NICE,Alpes-Maritimes,France": [
+      7.264625,
+      43.713667
+    ],
+    "PUGET SUR ARGENS,Var,France": [
+      6.690137,
+      43.459996
+    ],
+    "SAINT DIZIER,Haute-Marne,France": [
+      4.903699,
+      48.616378
+    ],
+    "L'ISLE SUR LA SORGUE,Vaucluse,France": [
+      5.223209,
+      43.979616
+    ],
+    "SAINT NAZAIRE,Loire-Atlantique,France": [
+      -2.234671,
+      47.273982
+    ],
+    "HAGETMAU,Landes,France": [
+      -0.594911,
+      43.656198
+    ],
+    "VEIGY FONCENEX,Haute-Savoie,France": [
+      6.258531,
+      46.269361
+    ],
+    "MARSEILLE,Bouches-du-Rhône,France": [
+      5.401581,
+      43.295314
+    ],
+    "LYON,Rhône,France": [
+      4.835571,
+      45.732398
+    ],
+    "VANVES,Hauts-de-Seine,France": [
+      2.287187,
+      48.822233
+    ],
+    "ARMENTIERES,Nord,France": [
+      2.879334,
+      50.687191
+    ],
+    "GOURNAY EN BRAY,Seine-Maritime,France": [
+      1.722902,
+      49.481127
+    ],
+    "FRANCONVILLE,Val-d'Oise,France": [
+      2.224762,
+      48.990612
+    ],
+    "FOURNES EN WEPPES,Nord,France": [
+      2.890015,
+      50.585416
+    ],
+    "RENNES,Ille-et-Vilaine,France": [
+      -1.665857,
+      48.110805
+    ],
+    "SCEAUX,Hauts-de-Seine,France": [
+      2.296479,
+      48.77627
+    ],
+    "BISCHHEIM,Bas-Rhin,France": [
+      7.745663,
+      48.615467
+    ],
+    "VERSONNEX,Ain,France": [
+      6.099677,
+      46.30491
+    ],
+    "FONTENAY LE FLEURY,Yvelines,France": [
+      2.046931,
+      48.811649
+    ],
+    "PANAZOL,Haute-Vienne,France": [
+      1.301408,
+      45.835723
+    ],
+    "SAINT GREGOIRE,Ille-et-Vilaine,France": [
+      -1.688918,
+      48.153194
+    ],
+    "BERGERAC,Dordogne,France": [
+      0.478252,
+      44.851803
+    ],
+    "FOIX,Ariège,France": [
+      1.604374,
+      42.960881
+    ],
+    "LE GRAU DU ROI,Gard,France": [
+      4.135149,
+      43.517345
+    ],
+    "ENNEZAT,Puy-de-Dôme,France": [
+      3.224872,
+      45.896772
+    ],
+    "AMILLY,Loiret,France": [
+      2.779186,
+      47.969459
+    ],
+    "LA POMMERAYE,Maine-et-Loire,France": [
+      -0.858433,
+      47.354915
+    ],
+    "ORLEANS,Loiret,France": [
+      1.90081,
+      47.90345
+    ],
+    "CHATEAUBRIANT,Loire-Atlantique,France": [
+      -1.377651,
+      47.718818
+    ],
+    "GALLARGUES LE MONTUEUX,Gard,France": [
+      4.170457,
+      43.719676
+    ],
+    "SANARY SUR MER,Var,France": [
+      5.791955,
+      43.125939
+    ],
+    "RIEUX MINERVOIS,Aude,France": [
+      2.588945,
+      43.281186
+    ],
+    "HOURTIN,Gironde,France": [
+      -1.059318,
+      45.186492
+    ],
+    "BARBY,Savoie,France": [
+      5.9777,
+      45.568256
+    ],
+    "HORNAING,Nord,France": [
+      3.336032,
+      50.367757
+    ],
+    "ILLE SUR TET,Pyrénées-Orientales,France": [
+      2.61996,
+      42.66915
+    ],
+    "SAINT MAX,Meurthe-et-Moselle,France": [
+      6.205879,
+      48.70337
+    ],
+    "EVREUX,Eure,France": [
+      1.152357,
+      49.02385
+    ],
+    "SAINT JUST SAINT RAMBERT,Loire,France": [
+      4.25595,
+      45.498031
+    ],
+    "BREST,Finistère,France": [
+      -4.484974,
+      48.404244
+    ],
+    "FORCALQUIER,Alpes-de-Haute-Provence,France": [
+      5.77965,
+      43.959507
+    ],
+    "CHAMBERY,Savoie,France": [
+      5.909277,
+      45.584386
+    ],
+    "HINDISHEIM,Bas-Rhin,France": [
+      7.639248,
+      48.470108
+    ],
+    "CHERBOURG,Manche,France": [
+      -1.649987,
+      49.650392
+    ],
+    "SISSONNE,Aisne,France": [
+      3.894134,
+      49.569677
+    ],
+    "FROMELLES,Nord,France": [
+      2.853995,
+      50.606417
+    ],
+    "TOULOUSE,Haute-Garonne,France": [
+      1.440694,
+      43.603902
+    ],
+    "FONTAINEBLEAU,Seine-et-Marne,France": [
+      2.704043,
+      48.407104
+    ],
+    "ALTKIRCH,Haut-Rhin,France": [
+      7.232436,
+      47.623389
+    ],
+    "SAINT MAUR DES FOSSES,Val-de-Marne,France": [
+      2.494142,
+      48.797462
+    ],
+    "ALBERTVILLE,Savoie,France": [
+      6.389481,
+      45.670841
+    ],
+    "CHAUMONT,Haute-Marne,France": [
+      5.140798,
+      48.103825
+    ],
+    "PARIS,Paris,France": [
+      2.342865,
+      48.858705
+    ],
+    "MEYSSAC,Corrèze,France": [
+      1.671266,
+      45.053805
+    ],
+    "LA BRUFFIERE,Vendée,France": [
+      -1.195352,
+      47.013083
+    ],
+    "CAHORS,Lot,France": [
+      1.438795,
+      44.448631
+    ],
+    "SURESNES,Hauts-de-Seine,France": [
+      2.219949,
+      48.870189
+    ],
+    "LE MANS,Sarthe,France": [
+      0.200717,
+      47.986684
+    ],
+    "Nantes,Loire-Atlantique,France": [
+      -1.554004,
+      47.228973
+    ]
+  },
+  "routes": {
+    "Nantes,Loire-Atlantique,France::LA CRAU,Var,France": [
+      1066.1188,
+      10.177249999999999
+    ],
+    "Nantes,Loire-Atlantique,France::MEAUX,Seine-et-Marne,France": [
+      427.6168,
+      4.268555555555555
+    ],
+    "Nantes,Loire-Atlantique,France::MAGNY LES HAMEAUX,Yvelines,France": [
+      370.4151,
+      3.749
+    ],
+    "Nantes,Loire-Atlantique,France::BRISSAC,Hérault,France": [
+      841.3036,
+      8.274444444444445
+    ],
+    "Nantes,Loire-Atlantique,France::AVALLON,Yonne,France": [
+      546.7393000000001,
+      5.211138888888889
+    ],
+    "Nantes,Loire-Atlantique,France::HYERES,Var,France": [
+      1070.4283,
+      10.20563888888889
+    ],
+    "Nantes,Loire-Atlantique,France::GALLARGUES LE MONTUEUX,Gard,France": [
+      853.2361,
+      8.007805555555555
+    ],
+    "Nantes,Loire-Atlantique,France::VILLARS LES DOMBES,Ain,France": [
+      675.5303,
+      6.7905
+    ],
+    "Nantes,Loire-Atlantique,France::ORANGE,Vaucluse,France": [
+      880.5356999999999,
+      8.452416666666666
+    ],
+    "Nantes,Loire-Atlantique,France::SCEAUX,Hauts-de-Seine,France": [
+      374.9565,
+      3.727583333333333
+    ],
+    "Nantes,Loire-Atlantique,France::FOURNES EN WEPPES,Nord,France": [
+      605.2677,
+      5.978722222222222
+    ],
+    "Nantes,Loire-Atlantique,France::FONTENAY LE FLEURY,Yvelines,France": [
+      362.6102,
+      3.7167499999999998
+    ],
+    "Nantes,Loire-Atlantique,France::MACON,Saône-et-Loire,France": [
+      625.7239000000001,
+      6.126472222222222
+    ],
+    "Nantes,Loire-Atlantique,France::MONTREUIL,Seine-Saint-Denis,France": [
+      393.84929999999997,
+      3.950388888888889
+    ],
+    "Nantes,Loire-Atlantique,France::THYEZ,Haute-Savoie,France": [
+      807.6296,
+      7.824805555555556
+    ],
+    "Nantes,Loire-Atlantique,France::PRAYSSAC,Lot,France": [
+      567.6586,
+      5.928444444444445
+    ],
+    "Nantes,Loire-Atlantique,France::SANARY SUR MER,Var,France": [
+      1041.9483,
+      9.862444444444446
+    ],
+    "Nantes,Loire-Atlantique,France::SAINT MALO,Ille-et-Vilaine,France": [
+      177.1558,
+      2.11425
+    ],
+    "Nantes,Loire-Atlantique,France::SAINT JEAN PLA DE CORTS,Pyrénées-Orientales,France": [
+      812.0573,
+      7.656777777777778
+    ],
+    "Nantes,Loire-Atlantique,France::BAYONNE,Pyrénées-Atlantiques,France": [
+      533.2973000000001,
+      5.201027777777778
+    ],
+    "Nantes,Loire-Atlantique,France::BERNOT,Aisne,France": [
+      567.3593000000001,
+      5.795861111111111
+    ],
+    "Nantes,Loire-Atlantique,France::LYON,Rhône,France": [
+      684.3839,
+      6.603083333333333
+    ],
+    "Nantes,Loire-Atlantique,France::CLERMONT FERRAND,Puy-de-Dôme,France": [
+      530.6039000000001,
+      4.977444444444444
+    ],
+    "Nantes,Loire-Atlantique,France::CARQUEFOU,Loire-Atlantique,France": [
+      15.0518,
+      0.3526388888888889
+    ],
+    "Nantes,Loire-Atlantique,France::CLAMART,Hauts-de-Seine,France": [
+      372.872,
+      3.7266944444444445
+    ],
+    "Nantes,Loire-Atlantique,France::PAU,Pyrénées-Atlantiques,France": [
+      557.6071999999999,
+      5.391555555555555
+    ],
+    "Nantes,Loire-Atlantique,France::SURESNES,Hauts-de-Seine,France": [
+      380.04429999999996,
+      3.8514166666666667
+    ],
+    "Nantes,Loire-Atlantique,France::TRIEL SUR SEINE,Yvelines,France": [
+      388.3832,
+      4.0384166666666665
+    ],
+    "Nantes,Loire-Atlantique,France::CHAUMONT,Haute-Marne,France": [
+      609.1434,
+      5.8396388888888895
+    ],
+    "Nantes,Loire-Atlantique,France::MONTELIMAR,Drôme,France": [
+      826.6208,
+      8.093444444444446
+    ],
+    "Nantes,Loire-Atlantique,France::PANAZOL,Haute-Vienne,France": [
+      332.6898,
+      4.3148333333333335
+    ],
+    "Nantes,Loire-Atlantique,France::FOUESNANT,Finistère,France": [
+      223.61870000000002,
+      2.6255833333333336
+    ],
+    "Nantes,Loire-Atlantique,France::YSSINGEAUX,Haute-Loire,France": [
+      709.7792,
+      6.755083333333333
+    ],
+    "Nantes,Loire-Atlantique,France::BERGERAC,Dordogne,France": [
+      444.7604,
+      4.436694444444445
+    ],
+    "Nantes,Loire-Atlantique,France::CEYRESTE,Bouches-du-Rhône,France": [
+      1022.7242,
+      9.762638888888889
+    ],
+    "Nantes,Loire-Atlantique,France::MEYREUIL,Bouches-du-Rhône,France": [
+      981.8081999999999,
+      9.270111111111111
+    ],
+    "Nantes,Loire-Atlantique,France::HORNAING,Nord,France": [
+      586.295,
+      5.764749999999999
+    ],
+    "Nantes,Loire-Atlantique,France::GROSSETO PRUGNA,Corse-du-Sud,France": [
+      1503.6993,
+      21.35186111111111
+    ],
+    "Nantes,Loire-Atlantique,France::SAINT NAZAIRE,Loire-Atlantique,France": [
+      68.1851,
+      0.9282499999999999
+    ],
+    "Nantes,Loire-Atlantique,France::ARCONNAY,Sarthe,France": [
+      225.9721,
+      2.2861944444444444
+    ],
+    "Nantes,Loire-Atlantique,France::FRANCONVILLE,Val-d'Oise,France": [
+      398.3651,
+      4.225111111111111
+    ],
+    "Nantes,Loire-Atlantique,France::ALTKIRCH,Haut-Rhin,France": [
+      860.1113,
+      8.14788888888889
+    ],
+    "Nantes,Loire-Atlantique,France::CORBAS,Rhône,France": [
+      697.3580999999999,
+      6.785027777777778
+    ],
+    "Nantes,Loire-Atlantique,France::SOORTS HOSSEGOR,Landes,France": [
+      520.2533,
+      5.089944444444444
+    ],
+    "Nantes,Loire-Atlantique,France::NICE,Alpes-Maritimes,France": [
+      1145.8456,
+      10.883833333333333
+    ],
+    "Nantes,Loire-Atlantique,France::HINDISHEIM,Bas-Rhin,France": [
+      885.0627,
+      8.379527777777778
+    ],
+    "Nantes,Loire-Atlantique,France::TRELAZE,Maine-et-Loire,France": [
+      93.8691,
+      1.2017222222222221
+    ],
+    "Nantes,Loire-Atlantique,France::VILLARD DE LANS,Isère,France": [
+      806.696,
+      8.193027777777779
+    ],
+    "Nantes,Loire-Atlantique,France::ANNEMASSE,Haute-Savoie,France": [
+      778.964,
+      7.549833333333334
+    ],
+    "Nantes,Loire-Atlantique,France::VILLENEUVE SUR LOT,Lot-et-Garonne,France": [
+      488.2497,
+      5.2067499999999995
+    ],
+    "Nantes,Loire-Atlantique,France::TOULON,Var,France": [
+      1053.4442,
+      9.986527777777777
+    ],
+    "Nantes,Loire-Atlantique,France::SAINT ETIENNE,Loire,France": [
+      662.0981999999999,
+      6.2451944444444445
+    ],
+    "Nantes,Loire-Atlantique,France::SAINT DIZIER,Haute-Marne,France": [
+      622.8049,
+      6.263416666666666
+    ],
+    "Nantes,Loire-Atlantique,France::ISSY LES MOULINEAUX,Hauts-de-Seine,France": [
+      376.6972,
+      3.7535000000000003
+    ],
+    "Nantes,Loire-Atlantique,France::SAINT MAUR DES FOSSES,Val-de-Marne,France": [
+      384.1391,
+      3.892361111111111
+    ],
+    "Nantes,Loire-Atlantique,France::LIFFRE,Ille-et-Vilaine,France": [
+      126.71889999999999,
+      1.520361111111111
+    ],
+    "Nantes,Loire-Atlantique,France::PESSAC,Gironde,France": [
+      361.12129999999996,
+      3.6215555555555556
+    ],
+    "Nantes,Loire-Atlantique,France::NANCY,Meurthe-et-Moselle,France": [
+      754.4219,
+      7.176027777777778
+    ],
+    "Nantes,Loire-Atlantique,France::MULHOUSE,Haut-Rhin,France": [
+      858.134,
+      8.007944444444444
+    ],
+    "Nantes,Loire-Atlantique,France::VIROFLAY,Yvelines,France": [
+      376.6304,
+      3.7864999999999998
+    ],
+    "Nantes,Loire-Atlantique,France::YFFINIAC,Côtes-d'Armor,France": [
+      196.0924,
+      2.221888888888889
+    ],
+    "Nantes,Loire-Atlantique,France::GRANDE SYNTHE,Nord,France": [
+      630.7854,
+      6.223583333333334
+    ],
+    "Nantes,Loire-Atlantique,France::LONS LE SAUNIER,Jura,France": [
+      734.9159000000001,
+      6.987333333333334
+    ],
+    "Nantes,Loire-Atlantique,France::LA ROCHELLE,Charente-Maritime,France": [
+      137.4366,
+      1.9889166666666667
+    ],
+    "Nantes,Loire-Atlantique,France::NORGES LA VILLE,Côte-d'Or,France": [
+      643.4964,
+      6.157
+    ],
+    "Nantes,Loire-Atlantique,France::MEXIMIEUX,Ain,France": [
+      727.1985999999999,
+      6.8990833333333335
+    ],
+    "Nantes,Loire-Atlantique,France::BREST,Finistère,France": [
+      302.2604,
+      3.3343611111111113
+    ],
+    "Nantes,Loire-Atlantique,France::AMILLY,Loiret,France": [
+      426.86129999999997,
+      4.23625
+    ],
+    "Nantes,Loire-Atlantique,France::CHERBOURG,Manche,France": [
+      343.1216,
+      3.7424166666666667
+    ],
+    "Nantes,Loire-Atlantique,France::KINTZHEIM,Bas-Rhin,France": [
+      908.9391999999999,
+      8.555777777777777
+    ],
+    "Nantes,Loire-Atlantique,France::COUBLEVIE,Isère,France": [
+      767.1086,
+      7.546111111111111
+    ],
+    "Nantes,Loire-Atlantique,France::SAINT TROPEZ,Var,France": [
+      1089.8783,
+      10.642944444444444
+    ],
+    "Nantes,Loire-Atlantique,France::CHATEAU GONTIER,Mayenne,France": [
+      124.89460000000001,
+      1.4559166666666667
+    ],
+    "Nantes,Loire-Atlantique,France::MARSEILLE,Bouches-du-Rhône,France": [
+      991.1968,
+      9.48086111111111
+    ],
+    "Nantes,Loire-Atlantique,France::ELANCOURT,Yvelines,France": [
+      353.31059999999997,
+      3.5215277777777776
+    ],
+    "Nantes,Loire-Atlantique,France::BARBY,Savoie,France": [
+      784.4329,
+      7.730666666666667
+    ],
+    "Nantes,Loire-Atlantique,France::SAINT MARTIN D'HERES,Isère,France": [
+      788.1176999999999,
+      7.810416666666667
+    ],
+    "Nantes,Loire-Atlantique,France::LIMOGES,Haute-Vienne,France": [
+      329.25109999999995,
+      4.208472222222222
+    ],
+    "Nantes,Loire-Atlantique,France::LA POMMERAYE,Maine-et-Loire,France": [
+      78.3281,
+      1.0370277777777779
+    ],
+    "Nantes,Loire-Atlantique,France::SAINT MANDE,Val-de-Marne,France": [
+      382.1768,
+      3.8692777777777776
+    ],
+    "Nantes,Loire-Atlantique,France::PUGET SUR ARGENS,Var,France": [
+      1082.0723,
+      10.132583333333335
+    ],
+    "Nantes,Loire-Atlantique,France::SISSONNE,Aisne,France": [
+      559.7895,
+      5.6152500000000005
+    ],
+    "Nantes,Loire-Atlantique,France::VILLEFRANCHE SUR SAONE,Rhône,France": [
+      664.1376,
+      6.4492777777777786
+    ],
+    "Nantes,Loire-Atlantique,France::QUIMPERLE,Finistère,France": [
+      185.84120000000001,
+      2.103833333333333
+    ],
+    "Nantes,Loire-Atlantique,France::ALBERTVILLE,Savoie,France": [
+      830.7324,
+      8.136
+    ],
+    "Nantes,Loire-Atlantique,France::CARQUEIRANNE,Var,France": [
+      1073.1228999999998,
+      10.274111111111113
+    ],
+    "Nantes,Loire-Atlantique,France::CAMBRAI,Nord,France": [
+      560.0144,
+      5.565138888888889
+    ],
+    "Nantes,Loire-Atlantique,France::L'ISLE SUR LA SORGUE,Vaucluse,France": [
+      935.6395,
+      9.126777777777779
+    ],
+    "Nantes,Loire-Atlantique,France::VIC EN BIGORRE,Hautes-Pyrénées,France": [
+      549.3378,
+      5.689972222222223
+    ],
+    "Nantes,Loire-Atlantique,France::PLOERMEL,Morbihan,France": [
+      129.3832,
+      1.7514444444444444
+    ],
+    "Nantes,Loire-Atlantique,France::CAHORS,Lot,France": [
+      616.8513,
+      6.025250000000001
+    ],
+    "Nantes,Loire-Atlantique,France::HOURTIN,Gironde,France": [
+      405.3079,
+      4.364
+    ],
+    "Nantes,Loire-Atlantique,France::SAINT GREGOIRE,Ille-et-Vilaine,France": [
+      115.29480000000001,
+      1.4439444444444445
+    ],
+    "Nantes,Loire-Atlantique,France::OYE PLAGE,Pas-de-Calais,France": [
+      615.0589,
+      6.087583333333333
+    ],
+    "Nantes,Loire-Atlantique,France::DRAGUIGNAN,Var,France": [
+      1081.3579,
+      10.257222222222222
+    ],
+    "Nantes,Loire-Atlantique,France::VERSONNEX,Ain,France": [
+      789.1713000000001,
+      7.780777777777778
+    ],
+    "Nantes,Loire-Atlantique,France::BRIVE LA GAILLARDE,Corrèze,France": [
+      421.1974,
+      5.11575
+    ],
+    "Nantes,Loire-Atlantique,France::GOND PONTOUVRE,Charente,France": [
+      287.1322,
+      3.2536944444444442
+    ],
+    "Nantes,Loire-Atlantique,France::TOURS,Indre-et-Loire,France": [
+      215.3947,
+      2.283527777777778
+    ],
+    "Nantes,Loire-Atlantique,France::FROMELLES,Nord,France": [
+      606.5291,
+      6.050916666666667
+    ],
+    "Nantes,Loire-Atlantique,France::SASSENAGE,Isère,France": [
+      780.8471999999999,
+      7.652333333333334
+    ],
+    "Nantes,Loire-Atlantique,France::LONGUENESSE,Pas-de-Calais,France": [
+      610.5079000000001,
+      6.201916666666667
+    ],
+    "Nantes,Loire-Atlantique,France::SAINT JUST EN CHAUSSEE,Oise,France": [
+      476.64509999999996,
+      5.004222222222222
+    ],
+    "Nantes,Loire-Atlantique,France::SAVIGNY,Haute-Savoie,France": [
+      759.9825,
+      7.505833333333333
+    ],
+    "Nantes,Loire-Atlantique,France::LA BRUFFIERE,Vendée,France": [
+      46.7624,
+      0.9500833333333334
+    ],
+    "Nantes,Loire-Atlantique,France::SAVIGNY SUR ORGE,Essonne,France": [
+      369.31690000000003,
+      3.591333333333333
+    ],
+    "Nantes,Loire-Atlantique,France::MONTBRON,Charente,France": [
+      313.8865,
+      3.5441666666666665
+    ],
+    "Nantes,Loire-Atlantique,France::BORDEAUX,Gironde,France": [
+      348.1648,
+      3.475
+    ],
+    "Nantes,Loire-Atlantique,France::BESANCON,Doubs,France": [
+      734.0448,
+      6.880888888888889
+    ],
+    "Nantes,Loire-Atlantique,France::LAVERUNE,Hérault,France": [
+      822.8761,
+      7.816638888888889
+    ],
+    "Nantes,Loire-Atlantique,France::BONCHAMP LES LAVAL,Mayenne,France": [
+      157.159,
+      1.9623055555555555
+    ],
+    "Nantes,Loire-Atlantique,France::FOIX,Ariège,France": [
+      671.6589,
+      6.463555555555556
+    ],
+    "Nantes,Loire-Atlantique,France::REIMS,Marne,France": [
+      517.742,
+      5.083916666666666
+    ],
+    "Nantes,Loire-Atlantique,France::VERRIERES,Aube,France": [
+      523.8071,
+      5.003527777777778
+    ],
+    "Nantes,Loire-Atlantique,France::SUIPPES,Marne,France": [
+      571.0443,
+      5.5296666666666665
+    ],
+    "Nantes,Loire-Atlantique,France::COLOMIERS,Haute-Garonne,France": [
+      591.2312,
+      5.653416666666667
+    ],
+    "Nantes,Loire-Atlantique,France::VOUZIERS,Ardennes,France": [
+      582.7405,
+      6.009805555555555
+    ],
+    "Nantes,Loire-Atlantique,France::NARBONNE,Aude,France": [
+      735.4759,
+      6.998194444444445
+    ],
+    "Nantes,Loire-Atlantique,France::BENNWIHR,Haut-Rhin,France": [
+      908.6349,
+      8.52361111111111
+    ],
+    "Nantes,Loire-Atlantique,France::GOURNAY EN BRAY,Seine-Maritime,France": [
+      434.6323,
+      4.674916666666667
+    ],
+    "Nantes,Loire-Atlantique,France::LE MANS,Sarthe,France": [
+      188.118,
+      2.091416666666667
+    ],
+    "Nantes,Loire-Atlantique,France::VANDOEUVRE LES NANCY,Meurthe-et-Moselle,France": [
+      764.1867,
+      7.21025
+    ],
+    "Nantes,Loire-Atlantique,France::SUCE SUR ERDRE,Loire-Atlantique,France": [
+      14.937,
+      0.4305277777777778
+    ],
+    "Nantes,Loire-Atlantique,France::LUANT,Indre,France": [
+      392.32620000000003,
+      3.8029444444444445
+    ],
+    "Nantes,Loire-Atlantique,France::BRAS,Var,France": [
+      1018.0912,
+      9.639666666666667
+    ],
+    "Nantes,Loire-Atlantique,France::SAINT MAIXENT L'ECOLE,Deux-Sèvres,France": [
+      144.386,
+      1.9128333333333334
+    ],
+    "Nantes,Loire-Atlantique,France::BASTIA,Haute-Corse,France": [
+      1352.2931999999998,
+      18.520305555555556
+    ],
+    "Nantes,Loire-Atlantique,France::PARIS,Paris,France": [
+      381.1898,
+      3.9391944444444444
+    ],
+    "Nantes,Loire-Atlantique,France::CANNES,Alpes-Maritimes,France": [
+      1122.215,
+      10.604194444444444
+    ],
+    "Nantes,Loire-Atlantique,France::AUBERVILLIERS,Seine-Saint-Denis,France": [
+      389.5038,
+      4.057527777777778
+    ],
+    "Nantes,Loire-Atlantique,France::LE PASSAGE,Lot-et-Garonne,France": [
+      480.8249,
+      4.660055555555556
+    ],
+    "Nantes,Loire-Atlantique,France::GRENOBLE,Isère,France": [
+      786.5477,
+      7.724083333333334
+    ],
+    "Nantes,Loire-Atlantique,France::GRASSE,Alpes-Maritimes,France": [
+      1131.629,
+      10.752388888888888
+    ],
+    "Nantes,Loire-Atlantique,France::THIONVILLE,Moselle,France": [
+      713.4788000000001,
+      6.796138888888889
+    ],
+    "Nantes,Loire-Atlantique,France::LA CHARITE SUR LOIRE,Nièvre,France": [
+      411.5289,
+      4.358611111111111
+    ],
+    "Nantes,Loire-Atlantique,France::LE VESINET,Yvelines,France": [
+      375.6102,
+      3.9181666666666666
+    ],
+    "Nantes,Loire-Atlantique,France::BAGNERES DE BIGORRE,Hautes-Pyrénées,France": [
+      624.5097,
+      6.067055555555556
+    ],
+    "Nantes,Loire-Atlantique,France::HUNINGUE,Haut-Rhin,France": [
+      891.6284,
+      8.347694444444445
+    ],
+    "Nantes,Loire-Atlantique,France::MONTIGNY LE BRETONNEUX,Yvelines,France": [
+      358.7747,
+      3.6108888888888893
+    ],
+    "Nantes,Loire-Atlantique,France::TOULOUSE,Haute-Garonne,France": [
+      586.0806,
+      5.69475
+    ],
+    "Nantes,Loire-Atlantique,France::ALBI,Tarn,France": [
+      654.3855,
+      6.266
+    ],
+    "Nantes,Loire-Atlantique,France::CARCASSONNE,Aude,France": [
+      679.774,
+      6.555833333333333
+    ],
+    "Nantes,Loire-Atlantique,France::GRANVILLE,Manche,France": [
+      214.2252,
+      2.5185
+    ],
+    "Nantes,Loire-Atlantique,France::PLEBOULLE,Côtes-d'Armor,France": [
+      207.0997,
+      2.522111111111111
+    ],
+    "Nantes,Loire-Atlantique,France::ALTHEN DES PALUDS,Vaucluse,France": [
+      905.6691,
+      8.603472222222223
+    ],
+    "Nantes,Loire-Atlantique,France::HAGETMAU,Landes,France": [
+      507.7716,
+      5.122583333333333
+    ],
+    "Nantes,Loire-Atlantique,France::SOUEIX ROGALLE,Ariège,France": [
+      696.7315,
+      7.0944166666666675
+    ],
+    "Nantes,Loire-Atlantique,France::VANVES,Hauts-de-Seine,France": [
+      379.70840000000004,
+      3.8221944444444444
+    ],
+    "Nantes,Loire-Atlantique,France::PANTIN,Seine-Saint-Denis,France": [
+      388.4985,
+      4.03075
+    ],
+    "Nantes,Loire-Atlantique,France::CHAMBERY,Savoie,France": [
+      777.7848,
+      7.577361111111111
+    ],
+    "Nantes,Loire-Atlantique,France::SAINTE ANNE D'AURAY,Morbihan,France": [
+      144.5161,
+      1.8271666666666668
+    ],
+    "Nantes,Loire-Atlantique,France::CHATEAUBRIANT,Loire-Atlantique,France": [
+      70.5482,
+      1.069888888888889
+    ],
+    "Nantes,Loire-Atlantique,France::SAINT JUST SAINT RAMBERT,Loire,France": [
+      653.8136999999999,
+      6.125
+    ],
+    "Nantes,Loire-Atlantique,France::MEYSSAC,Corrèze,France": [
+      444.1538,
+      5.4392499999999995
+    ],
+    "Nantes,Loire-Atlantique,France::SAINT MAX,Meurthe-et-Moselle,France": [
+      756.6103,
+      7.279138888888889
+    ],
+    "Nantes,Loire-Atlantique,France::LILLE,Nord,France": [
+      603.3069,
+      5.926277777777777
+    ],
+    "Nantes,Loire-Atlantique,France::CHAUNY,Aisne,France": [
+      505.6583,
+      5.277111111111111
+    ],
+    "Nantes,Loire-Atlantique,France::BISCHHEIM,Bas-Rhin,France": [
+      858.1284,
+      8.076305555555555
+    ],
+    "Nantes,Loire-Atlantique,France::FORCALQUIER,Alpes-de-Haute-Provence,France": [
+      1053.1318999999999,
+      10.043722222222222
+    ],
+    "Nantes,Loire-Atlantique,France::ERMONT,Val-d'Oise,France": [
+      398.2181,
+      4.213222222222222
+    ],
+    "Nantes,Loire-Atlantique,France::MONTBELIARD,Doubs,France": [
+      804.9851,
+      7.5128055555555555
+    ],
+    "Nantes,Loire-Atlantique,France::LE GRAU DU ROI,Gard,France": [
+      856.0136,
+      8.217472222222222
+    ],
+    "Nantes,Loire-Atlantique,France::ENNEZAT,Puy-de-Dôme,France": [
+      530.5286,
+      4.9735555555555555
+    ],
+    "Nantes,Loire-Atlantique,France::MONT DE MARSAN,Landes,France": [
+      476.2213,
+      4.696111111111111
+    ],
+    "Nantes,Loire-Atlantique,France::ILLE SUR TET,Pyrénées-Orientales,France": [
+      811.1717,
+      7.679694444444445
+    ],
+    "Nantes,Loire-Atlantique,France::CREPY EN VALOIS,Oise,France": [
+      449.043,
+      4.621916666666667
+    ],
+    "Nantes,Loire-Atlantique,France::FONTAINEBLEAU,Seine-et-Marne,France": [
+      406.8802,
+      4.072805555555556
+    ],
+    "Nantes,Loire-Atlantique,France::MUNCHHAUSEN,Bas-Rhin,France": [
+      894.4196999999999,
+      8.442444444444444
+    ],
+    "Nantes,Loire-Atlantique,France::EVREUX,Eure,France": [
+      355.06829999999997,
+      3.9336944444444444
+    ],
+    "Nantes,Loire-Atlantique,France::ARMENTIERES,Nord,France": [
+      623.6138000000001,
+      6.181583333333333
+    ],
+    "Nantes,Loire-Atlantique,France::VILLEREAL,Lot-et-Garonne,France": [
+      479.9248,
+      5.079472222222222
+    ],
+    "Nantes,Loire-Atlantique,France::MASSY,Essonne,France": [
+      361.6487,
+      3.5098611111111113
+    ],
+    "Nantes,Loire-Atlantique,France::VALDOIE,Territoire de Belfort,France": [
+      823.3231,
+      7.7425
+    ],
+    "Nantes,Loire-Atlantique,France::YERRES,Essonne,France": [
+      392.003,
+      3.9168611111111113
+    ],
+    "Nantes,Loire-Atlantique,France::SEICHAMPS,Meurthe-et-Moselle,France": [
+      769.2615999999999,
+      7.3653055555555556
+    ],
+    "Nantes,Loire-Atlantique,France::VEIGY FONCENEX,Haute-Savoie,France": [
+      789.266,
+      7.83525
+    ],
+    "Nantes,Loire-Atlantique,France::RIEUX MINERVOIS,Aude,France": [
+      704.012,
+      6.8893611111111115
+    ],
+    "Nantes,Loire-Atlantique,France::SAINT MARTIN DU TERTRE,Val-d'Oise,France": [
+      429.0495,
+      4.470305555555556
+    ],
+    "Nantes,Loire-Atlantique,France::BEAUVAIS,Oise,France": [
+      461.17359999999996,
+      4.939777777777778
+    ],
+    "Nantes,Loire-Atlantique,France::PERPIGNAN,Pyrénées-Orientales,France": [
+      789.3157,
+      7.473027777777778
+    ],
+    "Nantes,Loire-Atlantique,France::RENNES,Ille-et-Vilaine,France": [
+      109.3059,
+      1.4227222222222222
+    ],
+    "Nantes,Loire-Atlantique,France::SARREGUEMINES,Moselle,France": [
+      776.8972,
+      7.344722222222222
+    ],
+    "Nantes,Loire-Atlantique,France::ARCUEIL,Val-de-Marne,France": [
+      374.89509999999996,
+      3.6911666666666667
+    ],
+    "Nantes,Loire-Atlantique,France::CHARTRES,Eure-et-Loir,France": [
+      301.7807,
+      2.970944444444444
+    ],
+    "Nantes,Loire-Atlantique,France::ORLEANS,Loiret,France": [
+      330.9708,
+      3.38875
+    ],
+    "Nantes,Loire-Atlantique,France::MARAUSSAN,Hérault,France": [
+      767.8608,
+      7.3061388888888885
+    ],
+    "Nantes,Loire-Atlantique,France::EVIAN LES BAINS,Haute-Savoie,France": [
+      822.7461,
+      8.461
+    ]
+  }
+}

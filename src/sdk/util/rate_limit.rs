@@ -1,12 +1,20 @@
+use governor::{Quota, RateLimiter, state::InMemoryState, clock::DefaultClock};
+use once_cell::sync::Lazy;
 use std::num::NonZeroU32;
 use std::sync::Arc;
-use governor::{Quota, RateLimiter};
-use governor::state::{NotKeyed, InMemoryState};
-use governor::clock::DefaultClock;
+use governor::middleware::NoOpMiddleware;
 
-pub type Limiter = Arc<RateLimiter<NotKeyed, InMemoryState, DefaultClock>>;
+// Type alias for clarity
+pub type Limiter = Arc<RateLimiter<governor::state::NotKeyed, InMemoryState, DefaultClock, NoOpMiddleware>>;
 
-pub fn ors_limiter() -> Limiter {
-    let quota = Quota::per_minute(NonZeroU32::new(40).unwrap());
-    Arc::new(RateLimiter::direct(quota))
-}
+pub static GEOCODE_LIMITER: Lazy<Limiter> = Lazy::new(|| {
+    Arc::new(RateLimiter::direct(
+        Quota::per_minute(NonZeroU32::new(100).unwrap()),
+    ))
+});
+
+pub static DIRECTIONS_LIMITER: Lazy<Limiter> = Lazy::new(|| {
+    Arc::new(RateLimiter::direct(
+        Quota::per_minute(NonZeroU32::new(40).unwrap()),
+    ))
+});
