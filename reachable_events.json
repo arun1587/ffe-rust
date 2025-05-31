@@ -1,27 +1,11 @@
 [
   {
-    "title": "Championnat Bretagne TC 2025",
-    "department": "35",
-    "location": "RENNES",
-    "start_date": "2025-05-30",
+    "title": "10ème Tournoi des Templiers",
+    "department": "22",
+    "location": "PLEBOULLE",
+    "start_date": "2025-06-01",
     "end_date": "2025-06-01",
-    "link": "https://www.echecs.asso.fr/FicheTournoi.aspx?Ref=67684"
-  },
-  {
-    "title": "Championnat Bretagne TC 2025 Rapide",
-    "department": "35",
-    "location": "RENNES",
-    "start_date": "2025-05-30",
-    "end_date": "2025-06-01",
-    "link": "https://www.echecs.asso.fr/FicheTournoi.aspx?Ref=67685"
-  },
-  {
-    "title": "Championnat Bretagne TC 2025 Blitz",
-    "department": "35",
-    "location": "RENNES",
-    "start_date": "2025-05-30",
-    "end_date": "2025-06-01",
-    "link": "https://www.echecs.asso.fr/FicheTournoi.aspx?Ref=67686"
+    "link": "https://www.echecs.asso.fr/FicheTournoi.aspx?Ref=67300"
   },
   {
     "title": "Championnat Bretagne TC 2025",
@@ -46,5 +30,461 @@
     "start_date": "2025-05-30",
     "end_date": "2025-06-01",
     "link": "https://www.echecs.asso.fr/FicheTournoi.aspx?Ref=67686"
+  },
+  {
+    "title": "22ème Open André Pohu Open A",
+    "department": "49",
+    "location": "LA POMMERAYE",
+    "start_date": "2025-06-07",
+    "end_date": "2025-06-09",
+    "link": "https://www.echecs.asso.fr/FicheTournoi.aspx?Ref=67226"
+  },
+  {
+    "title": "22ème Open André Pohu Open B (-1600)",
+    "department": "49",
+    "location": "LA POMMERAYE",
+    "start_date": "2025-06-07",
+    "end_date": "2025-06-09",
+    "link": "https://www.echecs.asso.fr/FicheTournoi.aspx?Ref=67227"
+  },
+  {
+    "title": "1er Open Fide de l'Echiquier Malouin - Tournoi A (-2400)",
+    "department": "35",
+    "location": "SAINT MALO",
+    "start_date": "2025-06-07",
+    "end_date": "2025-06-08",
+    "link": "https://www.echecs.asso.fr/FicheTournoi.aspx?Ref=64691"
+  },
+  {
+    "title": "1er Open Fide de l'Echiquier Malouin - Tournoi B (-2400)",
+    "department": "35",
+    "location": "SAINT MALO",
+    "start_date": "2025-06-07",
+    "end_date": "2025-06-08",
+    "link": "https://www.echecs.asso.fr/FicheTournoi.aspx?Ref=64692"
+  },
+  {
+    "title": "3ème Open Fide E.L.S.A. - Tournoi A (-2400)",
+    "department": "56",
+    "location": "SAINTE ANNE D'AURAY",
+    "start_date": "2025-06-07",
+    "end_date": "2025-06-08",
+    "link": "https://www.echecs.asso.fr/FicheTournoi.aspx?Ref=65139"
+  },
+  {
+    "title": "3ème Open Fide E.L.S.A. - Tournoi B (-2400)",
+    "department": "56",
+    "location": "SAINTE ANNE D'AURAY",
+    "start_date": "2025-06-07",
+    "end_date": "2025-06-08",
+    "link": "https://www.echecs.asso.fr/FicheTournoi.aspx?Ref=65140"
+  },
+  {
+    "title": "3ème Open Fide E.L.S.A. - Tournoi C (-2400)",
+    "department": "56",
+    "location": "SAINTE ANNE D'AURAY",
+    "start_date": "2025-06-07",
+    "end_date": "2025-06-08",
+    "link": "https://www.echecs.asso.fr/FicheTournoi.aspx?Ref=65141"
+  },
+  {
+    "title": "3ème Open Fide E.L.S.A. - Tournoi D (-2400)",
+    "department": "56",
+    "location": "SAINTE ANNE D'AURAY",
+    "start_date": "2025-06-07",
+    "end_date": "2025-06-08",
+    "link": "https://www.echecs.asso.fr/FicheTournoi.aspx?Ref=65142"
+  },
+  {
+    "title": "Open Blitz de l'Echiquier Malouin 2025",
+    "department": "35",
+    "location": "SAINT MALO",
+    "start_date": "2025-06-07",
+    "end_date": "2025-06-07",
+    "link": "https://www.echecs.asso.fr/FicheTournoi.aspx?Ref=64693"
+  },
+  {
+    "title": "Trophée Jean BIOU 2024-25 r7",
+    "department": "44",
+    "location": "NANTES",
+    "start_date": "2025-06-07",
+    "end_date": "2025-06-07",
+    "link": "https://www.echecs.asso.fr/FicheTournoi.aspx?Ref=64544"
+  },
+  {
+    "title": "22ème Open André Pohu Open A",
+    "department": "49",
+    "location": "LA POMMERAYE",
+    "start_date": "2025-06-07",
+    "end_date": "2025-06-09",
+    "link": "https://www.echecs.asso.fr/FicheTournoi.aspx?Ref=67226"
+  },
+  {
+    "title": "22ème Open André Pohu Open B (-1600)",
+    "department": "49",
+    "location": "LA POMMERAYE",
+    "start_date": "2025-06-07",
+    "end_date": "2025-06-09",
+    "link": "https://www.echecs.asso.fr/FicheTournoi.aspx?Ref=67227"
+  },
+  {
+    "title": "1er Open Fide de l'Echiquier Malouin - Tournoi A (-2400)",
+    "department": "35",
+    "location": "SAINT MALO",
+    "start_date": "2025-06-07",
+    "end_date": "2025-06-08",
+    "link": "https://www.echecs.asso.fr/FicheTournoi.aspx?Ref=64691"
+  },
+  {
+    "title": "1er Open Fide de l'Echiquier Malouin - Tournoi B (-2400)",
+    "department": "35",
+    "location": "SAINT MALO",
+    "start_date": "2025-06-07",
+    "end_date": "2025-06-08",
+    "link": "https://www.echecs.asso.fr/FicheTournoi.aspx?Ref=64692"
+  },
+  {
+    "title": "3ème Open Fide E.L.S.A. - Tournoi A (-2400)",
+    "department": "56",
+    "location": "SAINTE ANNE D'AURAY",
+    "start_date": "2025-06-07",
+    "end_date": "2025-06-08",
+    "link": "https://www.echecs.asso.fr/FicheTournoi.aspx?Ref=65139"
+  },
+  {
+    "title": "3ème Open Fide E.L.S.A. - Tournoi B (-2400)",
+    "department": "56",
+    "location": "SAINTE ANNE D'AURAY",
+    "start_date": "2025-06-07",
+    "end_date": "2025-06-08",
+    "link": "https://www.echecs.asso.fr/FicheTournoi.aspx?Ref=65140"
+  },
+  {
+    "title": "3ème Open Fide E.L.S.A. - Tournoi C (-2400)",
+    "department": "56",
+    "location": "SAINTE ANNE D'AURAY",
+    "start_date": "2025-06-07",
+    "end_date": "2025-06-08",
+    "link": "https://www.echecs.asso.fr/FicheTournoi.aspx?Ref=65141"
+  },
+  {
+    "title": "3ème Open Fide E.L.S.A. - Tournoi D (-2400)",
+    "department": "56",
+    "location": "SAINTE ANNE D'AURAY",
+    "start_date": "2025-06-07",
+    "end_date": "2025-06-08",
+    "link": "https://www.echecs.asso.fr/FicheTournoi.aspx?Ref=65142"
+  },
+  {
+    "title": "11èmes rapides de Bonchamp Tournoi principal (A)",
+    "department": "53",
+    "location": "BONCHAMP LES LAVAL",
+    "start_date": "2025-06-08",
+    "end_date": "2025-06-08",
+    "link": "https://www.echecs.asso.fr/FicheTournoi.aspx?Ref=67104"
+  },
+  {
+    "title": "11èmes rapides de Bonchamp Tournoi promotionnel",
+    "department": "53",
+    "location": "BONCHAMP LES LAVAL",
+    "start_date": "2025-06-08",
+    "end_date": "2025-06-08",
+    "link": "https://www.echecs.asso.fr/FicheTournoi.aspx?Ref=67105"
+  },
+  {
+    "title": "22ème Open André Pohu Open A",
+    "department": "49",
+    "location": "LA POMMERAYE",
+    "start_date": "2025-06-07",
+    "end_date": "2025-06-09",
+    "link": "https://www.echecs.asso.fr/FicheTournoi.aspx?Ref=67226"
+  },
+  {
+    "title": "22ème Open André Pohu Open B (-1600)",
+    "department": "49",
+    "location": "LA POMMERAYE",
+    "start_date": "2025-06-07",
+    "end_date": "2025-06-09",
+    "link": "https://www.echecs.asso.fr/FicheTournoi.aspx?Ref=67227"
+  },
+  {
+    "title": "1er tournoi du Phare Ouest - phase blitz poule basse",
+    "department": "35",
+    "location": "SAINT GREGOIRE",
+    "start_date": "2025-06-09",
+    "end_date": "2025-06-09",
+    "link": "https://www.echecs.asso.fr/FicheTournoi.aspx?Ref=67832"
+  },
+  {
+    "title": "1er tournoi du Phare Ouest - phase blitz",
+    "department": "35",
+    "location": "SAINT GREGOIRE",
+    "start_date": "2025-06-09",
+    "end_date": "2025-06-09",
+    "link": "https://www.echecs.asso.fr/FicheTournoi.aspx?Ref=67833"
+  },
+  {
+    "title": "1er tournoi du Phare Ouest - jeunes rapide",
+    "department": "35",
+    "location": "SAINT GREGOIRE",
+    "start_date": "2025-06-09",
+    "end_date": "2025-06-09",
+    "link": "https://www.echecs.asso.fr/FicheTournoi.aspx?Ref=67837"
+  },
+  {
+    "title": "1er tournoi du Phare Ouest",
+    "department": "35",
+    "location": "SAINT GREGOIRE",
+    "start_date": "2025-06-09",
+    "end_date": "2025-06-09",
+    "link": "https://www.echecs.asso.fr/FicheTournoi.aspx?Ref=67222"
+  },
+  {
+    "title": "35ème Rapide de Sucé-sur-Erdre - Jeunes",
+    "department": "44",
+    "location": "SUCE SUR ERDRE",
+    "start_date": "2025-06-15",
+    "end_date": "2025-06-15",
+    "link": "https://www.echecs.asso.fr/FicheTournoi.aspx?Ref=65030"
+  },
+  {
+    "title": "35ème Rapide de Sucé-sur-Erdre Open A",
+    "department": "44",
+    "location": "SUCE SUR ERDRE",
+    "start_date": "2025-06-15",
+    "end_date": "2025-06-15",
+    "link": "https://www.echecs.asso.fr/FicheTournoi.aspx?Ref=65042"
+  },
+  {
+    "title": "Grand Prix du Mans 2025 Tournoi Honneur A",
+    "department": "72",
+    "location": "LE MANS",
+    "start_date": "2025-06-15",
+    "end_date": "2025-06-15",
+    "link": "https://www.echecs.asso.fr/FicheTournoi.aspx?Ref=67800"
+  },
+  {
+    "title": "Grand Prix du Mans 2025 Tournoi Promotion B",
+    "department": "72",
+    "location": "LE MANS",
+    "start_date": "2025-06-15",
+    "end_date": "2025-06-15",
+    "link": "https://www.echecs.asso.fr/FicheTournoi.aspx?Ref=67801"
+  },
+  {
+    "title": "2ème Open de l'échiquier du ROC -2400 - Gr A",
+    "department": "50",
+    "location": "GRANVILLE",
+    "start_date": "2025-06-21",
+    "end_date": "2025-06-22",
+    "link": "https://www.echecs.asso.fr/FicheTournoi.aspx?Ref=67865"
+  },
+  {
+    "title": "2ème Open de l'échiquier du ROC -2400 - Gr B",
+    "department": "50",
+    "location": "GRANVILLE",
+    "start_date": "2025-06-21",
+    "end_date": "2025-06-22",
+    "link": "https://www.echecs.asso.fr/FicheTournoi.aspx?Ref=67866"
+  },
+  {
+    "title": "2ème Blitz d'Yffiniac",
+    "department": "22",
+    "location": "YFFINIAC",
+    "start_date": "2025-06-21",
+    "end_date": "2025-06-21",
+    "link": "https://www.echecs.asso.fr/FicheTournoi.aspx?Ref=66513"
+  },
+  {
+    "title": "Championnat de Bretagne de Blitz d'Yffiniac 2025",
+    "department": "22",
+    "location": "YFFINIAC",
+    "start_date": "2025-06-21",
+    "end_date": "2025-06-21",
+    "link": "https://www.echecs.asso.fr/FicheTournoi.aspx?Ref=67816"
+  },
+  {
+    "title": "2ème Open de l'échiquier du ROC -2400 - Gr A",
+    "department": "50",
+    "location": "GRANVILLE",
+    "start_date": "2025-06-21",
+    "end_date": "2025-06-22",
+    "link": "https://www.echecs.asso.fr/FicheTournoi.aspx?Ref=67865"
+  },
+  {
+    "title": "2ème Open de l'échiquier du ROC -2400 - Gr B",
+    "department": "50",
+    "location": "GRANVILLE",
+    "start_date": "2025-06-21",
+    "end_date": "2025-06-22",
+    "link": "https://www.echecs.asso.fr/FicheTournoi.aspx?Ref=67866"
+  },
+  {
+    "title": "16ème Rapide d'Yffiniac Toutes Catégories",
+    "department": "22",
+    "location": "YFFINIAC",
+    "start_date": "2025-06-22",
+    "end_date": "2025-06-22",
+    "link": "https://www.echecs.asso.fr/FicheTournoi.aspx?Ref=66483"
+  },
+  {
+    "title": "16ème RAPIDE d'Yffiniac JEUNES & DEBUTANTS",
+    "department": "22",
+    "location": "YFFINIAC",
+    "start_date": "2025-06-22",
+    "end_date": "2025-06-22",
+    "link": "https://www.echecs.asso.fr/FicheTournoi.aspx?Ref=66845"
+  },
+  {
+    "title": "22ème rapide Maurice Besnier",
+    "department": "44",
+    "location": "SAINT NAZAIRE",
+    "start_date": "2025-06-22",
+    "end_date": "2025-06-22",
+    "link": "https://www.echecs.asso.fr/FicheTournoi.aspx?Ref=67186"
+  },
+  {
+    "title": "22ème rapide Maurice Besnier - Tournoi jeunes",
+    "department": "44",
+    "location": "SAINT NAZAIRE",
+    "start_date": "2025-06-22",
+    "end_date": "2025-06-22",
+    "link": "https://www.echecs.asso.fr/FicheTournoi.aspx?Ref=67187"
+  },
+  {
+    "title": "4ème Trophée d'échecs de Trélazé",
+    "department": "49",
+    "location": "TRELAZE",
+    "start_date": "2025-06-22",
+    "end_date": "2025-06-22",
+    "link": "https://www.echecs.asso.fr/FicheTournoi.aspx?Ref=67322"
+  },
+  {
+    "title": "5ème Rapide Interne Châteaubriant -2400",
+    "department": "44",
+    "location": "CHATEAUBRIANT",
+    "start_date": "2025-06-27",
+    "end_date": "2025-06-27",
+    "link": "https://www.echecs.asso.fr/FicheTournoi.aspx?Ref=67887"
+  },
+  {
+    "title": "Festival Château-Gontier Été 2025 Tournoi A (-1800)",
+    "department": "53",
+    "location": "CHATEAU GONTIER",
+    "start_date": "2025-06-29",
+    "end_date": "2025-06-29",
+    "link": "https://www.echecs.asso.fr/FicheTournoi.aspx?Ref=67877"
+  },
+  {
+    "title": "Festival Château-Gontier Été 2025 Tournoi B (-1800)",
+    "department": "53",
+    "location": "CHATEAU GONTIER",
+    "start_date": "2025-06-29",
+    "end_date": "2025-06-29",
+    "link": "https://www.echecs.asso.fr/FicheTournoi.aspx?Ref=67878"
+  },
+  {
+    "title": "Festival Château-Gontier Été 2025 Tournoi C (-1800)",
+    "department": "53",
+    "location": "CHATEAU GONTIER",
+    "start_date": "2025-06-29",
+    "end_date": "2025-06-29",
+    "link": "https://www.echecs.asso.fr/FicheTournoi.aspx?Ref=67879"
+  },
+  {
+    "title": "Festival Château-Gontier Été 2025 Tournoi D (-1800)",
+    "department": "53",
+    "location": "CHATEAU GONTIER",
+    "start_date": "2025-06-29",
+    "end_date": "2025-06-29",
+    "link": "https://www.echecs.asso.fr/FicheTournoi.aspx?Ref=67880"
+  },
+  {
+    "title": "Festival Château-Gontier Été 2025 Tournoi E (-1800)",
+    "department": "53",
+    "location": "CHATEAU GONTIER",
+    "start_date": "2025-06-29",
+    "end_date": "2025-06-29",
+    "link": "https://www.echecs.asso.fr/FicheTournoi.aspx?Ref=67881"
+  },
+  {
+    "title": "Festival Château-Gontier Été 2025 Tournoi F (-1800)",
+    "department": "53",
+    "location": "CHATEAU GONTIER",
+    "start_date": "2025-06-29",
+    "end_date": "2025-06-29",
+    "link": "https://www.echecs.asso.fr/FicheTournoi.aspx?Ref=67882"
+  },
+  {
+    "title": "11ème Open Rapide de Ploermel 2025 - Tournoi principal",
+    "department": "56",
+    "location": "PLOERMEL",
+    "start_date": "2025-06-29",
+    "end_date": "2025-06-29",
+    "link": "https://www.echecs.asso.fr/FicheTournoi.aspx?Ref=67673"
+  },
+  {
+    "title": "11ème Open Rapide de Ploermel 2025 - Tournoi Jeunes U12-U14",
+    "department": "56",
+    "location": "PLOERMEL",
+    "start_date": "2025-06-29",
+    "end_date": "2025-06-29",
+    "link": "https://www.echecs.asso.fr/FicheTournoi.aspx?Ref=67674"
+  },
+  {
+    "title": "11ème Open Rapide de Ploermel 2025 - Tournoi Jeunes U08-U10",
+    "department": "56",
+    "location": "PLOERMEL",
+    "start_date": "2025-06-29",
+    "end_date": "2025-06-29",
+    "link": "https://www.echecs.asso.fr/FicheTournoi.aspx?Ref=67675"
+  },
+  {
+    "title": "Open Rapide de Liffré 2025 - Tournoi Petits pions - U8 U10 <1600",
+    "department": "35",
+    "location": "LIFFRE",
+    "start_date": "2025-06-29",
+    "end_date": "2025-06-29",
+    "link": "https://www.echecs.asso.fr/FicheTournoi.aspx?Ref=66254"
+  },
+  {
+    "title": "Open Rapide de Liffré 2025 - Tournoi A",
+    "department": "35",
+    "location": "LIFFRE",
+    "start_date": "2025-06-29",
+    "end_date": "2025-06-29",
+    "link": "https://www.echecs.asso.fr/FicheTournoi.aspx?Ref=66283"
+  },
+  {
+    "title": "Open Rapide de Liffré 2025 - Tournoi B -1600",
+    "department": "35",
+    "location": "LIFFRE",
+    "start_date": "2025-06-29",
+    "end_date": "2025-06-29",
+    "link": "https://www.echecs.asso.fr/FicheTournoi.aspx?Ref=66284"
+  },
+  {
+    "title": "20ème Rapide FIDE de Carquefou - Tournoi Principal",
+    "department": "44",
+    "location": "CARQUEFOU",
+    "start_date": "2025-06-29",
+    "end_date": "2025-06-29",
+    "link": "https://www.echecs.asso.fr/FicheTournoi.aspx?Ref=67398"
+  },
+  {
+    "title": "20ème Rapide FIDE de Carquefou - Tournoi Jeunes",
+    "department": "44",
+    "location": "CARQUEFOU",
+    "start_date": "2025-06-29",
+    "end_date": "2025-06-29",
+    "link": "https://www.echecs.asso.fr/FicheTournoi.aspx?Ref=67400"
+  },
+  {
+    "title": "1er Blitz d'Arçonnay",
+    "department": "72",
+    "location": "ARCONNAY",
+    "start_date": "2025-06-29",
+    "end_date": "2025-06-29",
+    "link": "https://www.echecs.asso.fr/FicheTournoi.aspx?Ref=67404"
   }
 ]

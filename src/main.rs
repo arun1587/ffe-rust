@@ -36,7 +36,7 @@ fn main() -> Result<(), Box<dyn Error>> {
     let reachable_events = filter_reachable_events(&origin, &events, &lookup, &mut cache, &api_key, 2.0);
     cache.save_to_file("cache.json")?;
 
-    log::info!("\n{} events are reachable within 2 hours.", reachable_events.len());
+    log::info!("{} events are reachable within 2 hours.", reachable_events.len());
 
     let json = serde_json::to_string_pretty(&reachable_events)?;
     let mut file = File::create("reachable_events.json")?;
