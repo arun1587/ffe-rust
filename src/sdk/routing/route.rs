@@ -101,7 +101,8 @@ pub fn get_road_distance(city1: &str, city2: &str, api_key: &str,cache: &mut Geo
 
         if attempt == 0 && text.contains("Could not find routable point") {
             log::warn!("Unroutable point detected. Trying snapped coordinates via reverse geocoding
-            .lon1={} lat1={} lon2={} lat2={}",lon1, lat1,lon2,lat2);
+            cities: {} → {}\n
+            lon1={} lat1={} lon2={} lat2={}",city1, city2, lon1, lat1,lon2,lat2);
             (lon1, lat1) = get_routable_coordinates(lon1, lat1, api_key)?;
             (lon2, lat2) = get_routable_coordinates(lon2, lat2, api_key)?;
         } else {
