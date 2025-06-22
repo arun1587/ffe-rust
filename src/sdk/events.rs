@@ -1,22 +1,17 @@
-// SDK for querying French Chess Federation events by region
-use std::error::Error;
-
-use chrono::{Datelike, Local, NaiveDate};
+use chrono::{Datelike, NaiveDate};
 use reqwest::{
     blocking::Client,
     header::{HeaderMap, USER_AGENT},
 };
 use scraper::{Html, Selector};
 use serde::Serialize;
+use std::collections::HashSet;
+use std::error::Error;
 
-use super::{
-    departments::DepartmentLookup,
-    routing::{cache::GeoCache, route::get_road_distance},
-    util::rate_limit::ors_limiter,
-};
+use super::departments::DepartmentLookup;
+use super::routing::{cache::GeoCache, route::get_road_distance, service::RoutingProvider};
 
-
-#[derive(Debug, Clone, Serialize)]
+#[derive(Debug, Clone, Serialize, Eq, PartialEq, Hash)]
 pub struct Event {
     pub title: String,
     pub department: String,
@@ -26,19 +21,60 @@ pub struct Event {
     pub link: String,
 }
 
-fn parse_events_from_html(html: &str, month: u32, year: i32,lookup: &DepartmentLookup) -> Result<Vec<Event>, Box<dyn Error>> {
+/// Parses the MONTHLY CALENDAR view to find which days have events.
+fn get_active_days_from_monthly_calendar(
+    html: &str,
+    month: u32,
+    year: i32,
+) -> Result<Vec<u32>, Box<dyn Error>> {
+    let document = Html::parse_document(html);
+    // Each calendar day is a `<td>`. We only care about those with an `onclick` event.
+    let day_cell_selector = Selector::parse("td[onclick]").unwrap();
+    // Inside a cell, the day number is in a link.
+    let day_link_selector = Selector::parse("a.lien_texte").unwrap();
+    // The presence of this paragraph indicates an event exists on that day.
+    let event_marker_selector = Selector::parse("p.para_bleu_small").unwrap();
+
+    let mut active_days = HashSet::new();
+
+    for cell in document.select(&day_cell_selector) {
+        // Only proceed if there's at least one event marker in the cell.
+        if cell.select(&event_marker_selector).next().is_some() {
+            if let Some(day_link) = cell.select(&day_link_selector).next() {
+                // The link's href contains the full date, e.g., 'Calendrier.aspx?jour=14/06/2025'
+                if let Some(href) = day_link.value().attr("href") {
+                    if let Some(date_str) = href.split('=').last() {
+                        if let Ok(date) = NaiveDate::parse_from_str(date_str, "%d/%m/%Y") {
+                            // Only add the day if it's in the month we're targeting.
+                            if date.month() == month && date.year() == year {
+                                active_days.insert(date.day());
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    let mut sorted_days: Vec<u32> = active_days.into_iter().collect();
+    sorted_days.sort_unstable();
+    Ok(sorted_days)
+}
+
+/// Parses the DETAILED LIST view for a single day.
+fn parse_list_view_html(
+    html: &str,
+    lookup: &DepartmentLookup,
+) -> Result<Vec<Event>, Box<dyn Error>> {
     let document = Html::parse_document(html);
     let row_selector = Selector::parse("tr.liste_clair, tr.liste_fonce").unwrap();
     let td_selector = Selector::parse("td").unwrap();
     let a_selector = Selector::parse("a").unwrap();
-
     let mut events = Vec::new();
 
     for row in document.select(&row_selector) {
         let tds: Vec<_> = row.select(&td_selector).collect();
-
         if tds.len() < 5 {
-            log::warn!("Skipping row due to insufficient columns: {} cols", tds.len());
             continue;
         }
 
@@ -49,27 +85,22 @@ fn parse_events_from_html(html: &str, month: u32, year: i32,lookup: &DepartmentL
         let start_date_str = tds[3].text().collect::<String>().trim().to_string();
         let end_date_str = tds[4].text().collect::<String>().trim().to_string();
 
-        let start_date = NaiveDate::parse_from_str(&start_date_str, "%d/%m/%y").or_else(|_| NaiveDate::parse_from_str(&start_date_str, "%d/%m/%Y"));
-        let end_date = NaiveDate::parse_from_str(&end_date_str, "%d/%m/%y").or_else(|_| NaiveDate::parse_from_str(&end_date_str, "%d/%m/%Y"));
+        if !lookup.is_valid_department(&department) {
+            continue;
+        }
 
-        if let (Ok(start_date), Ok(end_date)) = (start_date, end_date) {
-            if (start_date.month() != month && end_date.month() != month) || start_date.year() != year {
-                log::warn!("Skipping due to date outside specified time: start={} (month {}), end={} (month {}), input month={}, input year={}", 
-                    start_date, start_date.month(), end_date, end_date.month(), month, year);
-                continue;
-            }
-
-            if !lookup.is_valid_department(&department) {
-                log::debug!("Skipping event due to unknown department: {}", department);
-                continue;
-            }
-
-            let link = title_elem.select(&a_selector)
+        if let (Ok(start_date), Ok(end_date)) = (
+            NaiveDate::parse_from_str(&start_date_str, "%d/%m/%y")
+                .or_else(|_| NaiveDate::parse_from_str(&start_date_str, "%d/%m/%Y")),
+            NaiveDate::parse_from_str(&end_date_str, "%d/%m/%y")
+                .or_else(|_| NaiveDate::parse_from_str(&end_date_str, "%d/%m/%Y")),
+        ) {
+            let link = title_elem
+                .select(&a_selector)
                 .next()
                 .and_then(|a| a.value().attr("href"))
                 .map(|href| format!("https://www.echecs.asso.fr/{}", href))
                 .unwrap_or_default();
-
             events.push(Event {
                 title,
                 department,
@@ -78,103 +109,133 @@ fn parse_events_from_html(html: &str, month: u32, year: i32,lookup: &DepartmentL
                 end_date,
                 link,
             });
-        } else {
-            log::warn!("Failed to parse start or end date");
         }
     }
-
     Ok(events)
 }
 
-
-pub fn get_upcoming_events_by_region_and_month(month: u32, year: i32,lookup: &DepartmentLookup) -> Result<Vec<Event>, Box<dyn Error>> {
-    let client = Client::new();
+pub fn get_events_for_month(
+    month: u32,
+    year: i32,
+    client: &Client,
+    lookup: &DepartmentLookup,
+) -> Result<Vec<Event>, Box<dyn Error>> {
     let mut headers = HeaderMap::new();
     headers.insert(USER_AGENT, "Mozilla/5.0".parse().unwrap());
 
-    let today = Local::now().naive_local().date(); // get today's date
-    let mut day = if today.year() == year && today.month() == month {
-        today.day()
-    } else {
-        1
-    };
+    // 1. Scout Mission: Get the monthly calendar view.
+    let date_string = format!("01/{:02}/{}", month, year);
+    let calendar_url = format!(
+        "https://www.echecs.asso.fr/Calendrier.aspx?Date={}",
+        date_string
+    );
+    log::info!("Scouting for active days from {}", calendar_url);
+    let calendar_html = client
+        .get(&calendar_url)
+        .headers(headers.clone())
+        .send()?
+        .text()?;
+    let active_days = get_active_days_from_monthly_calendar(&calendar_html, month, year)?;
 
-    let mut events = Vec::new();
-    log::info!("starting from the date={} month={}", day, month);
+    if active_days.is_empty() {
+        log::info!("No events found in the calendar for {}/{}", month, year);
+        return Ok(Vec::new());
+    }
+    log::info!(
+        "Found {} active days. Fetching detailed event lists...",
+        active_days.len()
+    );
 
-    loop {
-        match NaiveDate::from_ymd_opt(year, month, day) {
-            Some(date) => {
-                let date_string = format!("{:02}/{:02}/{}", date.day(), date.month(), date.year());
-                let url = format!("https://www.echecs.asso.fr/Calendrier.aspx?jour={}", date_string);
-                let res = client.get(&url).headers(headers.clone()).send();
-                match res {
-                    Ok(response) => {
-                        let html = response.text()?;
+    // Use a HashSet to automatically handle duplicates (events spanning multiple days).
+    let mut unique_events = HashSet::new();
 
-                        let mut daily_events = parse_events_from_html(&html, month, year,lookup)?;
-                        events.append(&mut daily_events);
-                    }
-                    Err(err) => {
-                        log::error!("Failed to fetch {}: {}", url, err);
-                    }
-                }
+    // 2. Targeted Strikes: Fetch details only for the active days.
+    for day in active_days {
+        let list_view_date = format!("{:02}/{:02}/{}", day, month, year);
+        let list_view_url = format!(
+            "https://www.echecs.asso.fr/Calendrier.aspx?jour={}",
+            list_view_date
+        );
 
-                day += 1;
-            }
-            None => break, // Invalid date (e.g., April 31 or end of February)
+        log::debug!("Fetching details from {}", list_view_url);
+        let html = client
+            .get(&list_view_url)
+            .headers(headers.clone())
+            .send()?
+            .text()?;
+
+        let daily_events = parse_list_view_html(&html, lookup)?;
+        for event in daily_events {
+            unique_events.insert(event);
         }
     }
 
-    Ok(events)
+    let mut final_events: Vec<Event> = unique_events.into_iter().collect();
+    // Sort events by start date for a consistent output.
+    final_events.sort_by_key(|e| e.start_date);
+
+    Ok(final_events)
 }
 
 pub fn filter_reachable_events(
+    origin_city: &str,
     origin: &str,
     events: &[Event],
     lookup: &DepartmentLookup,
+    provider: &dyn RoutingProvider,
     cache: &mut GeoCache,
-    ors_api_key: &str,
     max_hours: f64,
 ) -> Vec<Event> {
     let mut reachable = Vec::new();
-    let limiter = ors_limiter();
-
-    log::info!("Total events collected from the ffe {}", events.len());
+    log::info!(
+        "Filtering {} events for reachability from '{}' (max {:.2} hours)...",
+        events.len(),
+        origin,
+        max_hours
+    );
 
     for event in events {
+        if origin_city
+            .trim()
+            .eq_ignore_ascii_case(&event.location.trim())
+        {
+            log::info!("[REACHABLE - SAME TOWN] {}", event.title);
+            reachable.push(event.clone());
+            continue;
+        }
+
         if let Some(department_name) = lookup.get_name(&event.department) {
-            let destination = format!("{},{},France", event.location, department_name);
+            let destination = format!("{}, {}", event.location, department_name);
 
-            if origin.trim().eq_ignore_ascii_case(&destination.trim()) {
-                log::debug!(
-                    "[REACHABLE - SAME LOCATION] {} at {} (0.0 km, 0.00 hrs, date={})",
-                    event.title, event.location, event.start_date
-                );
-                reachable.push(event.clone());
-                continue;
-            }
-
-            match get_road_distance(origin, &destination, ors_api_key, cache, &limiter) {
+            match get_road_distance(origin, &destination, provider, cache) {
                 Ok(summary) if summary.duration_hours <= max_hours => {
-                    log::debug!(
-                        "[REACHABLE] {} at {} ({:.1} km, {:.2} hrs, date={})",
-                        event.title, event.location, summary.distance_km, summary.duration_hours, event.start_date
+                    log::info!(
+                        "[REACHABLE] {} at {} ({:.1} km, {:.2} hrs)",
+                        event.title,
+                        event.location,
+                        summary.distance_km,
+                        summary.duration_hours
                     );
                     reachable.push(event.clone());
                 }
-                Ok(_) => {
-                    // Too far
-                    // println!("[TOO FAR] {}", event.title);
+                Ok(summary) => {
+                    log::trace!(
+                        "[TOO FAR] {} at {} ({:.2} hrs)",
+                        event.title,
+                        event.location,
+                        summary.duration_hours
+                    );
                 }
                 Err(err) => {
-                    log::error!("Distance calc failed for {}: {}", event.title, err);
+                    log::error!(
+                        "Could not calculate route for '{}' to '{}': {}",
+                        origin,
+                        destination,
+                        err
+                    );
                 }
             }
-        } else {
-            log::warn!("Unknown department: {}", event.department);
         }
     }
-
     reachable
 }
