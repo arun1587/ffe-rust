@@ -1,120 +1,109 @@
-// SDK for querying French Chess Federation events by region
-use reqwest::blocking::Client;
-use reqwest::header::{USER_AGENT, HeaderMap};
-use scraper::{Html, Selector};
-use chrono::{NaiveDate, Datelike};
-use std::env;
-use std::error::Error;
+use chrono::Datelike;
+use clap::Parser;
+use ffe_rust::{
+    sdk::config::OrsConfig,
+    sdk::departments::DepartmentLookup,
+    sdk::events::{filter_reachable_events, get_events_for_month},
+    sdk::routing::{cache::GeoCache, provider::RemoteOrsProvider},
+    sdk::util::{log::init_logging, rate_limit::Limiter},
+};
+use reqwest::blocking::Client as HttpClient;
+use std::{error::Error, fs::File, io::Write};
 
+/// A CLI tool to find reachable FFE chess tournaments
+#[derive(Parser, Debug)]
+#[command(version, about, long_about = None)]
+struct Cli {
+    /// The origin city name (e.g., "Rennes")
+    #[arg(short, long)]
+    city: String,
 
-#[derive(Debug, Clone)]
-pub struct Event {
-    title: String,
-    location: String,
-    start_date: NaiveDate,
-    end_date: NaiveDate,
-    link: String,
-}
+    /// The 2-digit department code of the origin city (e.g., 35)
+    #[arg(short, long)]
+    department: String,
 
-fn parse_events_from_html(html: &str, region_query: &str, month: u32, year: i32) -> Result<Vec<Event>, Box<dyn Error>> {
-    let document = Html::parse_document(html);
-    let row_selector = Selector::parse("tr.liste_clair, tr.liste_fonce").unwrap();
-    let td_selector = Selector::parse("td").unwrap();
-    let a_selector = Selector::parse("a").unwrap();
+    /// The month to search for events (1-12)
+    #[arg(short, long)]
+    month: u32,
 
-    let mut events = Vec::new();
-
-    for row in document.select(&row_selector) {
-        let tds: Vec<_> = row.select(&td_selector).collect();
-
-        if tds.len() < 5 {
-            println!("[DEBUG] Skipping row due to insufficient columns: {} cols", tds.len());
-            continue;
-        }
-
-        let title_elem = &tds[0];
-        let title = title_elem.text().collect::<String>().trim().to_string();
-        let location = tds[2].text().collect::<String>().trim().to_string();
-        let start_date_str = tds[3].text().collect::<String>().trim().to_string();
-        let end_date_str = tds[4].text().collect::<String>().trim().to_string();
-
-        let start_date = NaiveDate::parse_from_str(&start_date_str, "%d/%m/%y").or_else(|_| NaiveDate::parse_from_str(&start_date_str, "%d/%m/%Y"));
-        let end_date = NaiveDate::parse_from_str(&end_date_str, "%d/%m/%y").or_else(|_| NaiveDate::parse_from_str(&end_date_str, "%d/%m/%Y"));
-
-        if let (Ok(start_date), Ok(end_date)) = (start_date, end_date) {
-            if (start_date.month() != month && end_date.month() != month) || start_date.year() != year {
-                println!("[DEBUG] Skipping due to date outside specified time: start={} (month {}), end={} (month {}), input month={}, input year={}", 
-                    start_date, start_date.month(), end_date, end_date.month(), month, year);
-                continue;
-            }
-
-            let link = title_elem.select(&a_selector)
-                .next()
-                .and_then(|a| a.value().attr("href"))
-                .map(|href| format!("https://www.echecs.asso.fr/{}", href))
-                .unwrap_or_default();
-
-            if location.to_lowercase().contains(&region_query.to_lowercase()) {
-                events.push(Event {
-                    title,
-                    location,
-                    start_date,
-                    end_date,
-                    link,
-                });
-            } 
-        } else {
-            println!("[DEBUG] Failed to parse start or end date");
-        }
-    }
-
-    Ok(events)
-}
-
-pub fn get_upcoming_events_by_region_and_month(region_query: &str, month: u32, year: i32) -> Result<Vec<Event>, Box<dyn Error>> {
-    let date_string = format!("{:02}/{:02}/{}", 1, month, year);
-    let url = format!("https://www.echecs.asso.fr/Calendrier.aspx?jour={}", date_string);
-
-    let mut headers = HeaderMap::new();
-    headers.insert(
-        USER_AGENT,
-        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36".parse()?
-    );
-    println!("Sending request to URL: {}", url);
-
-
-    let client = Client::builder()
-        .default_headers(headers)
-        .build()?;
-
-    let response_raw = client.get(url).send()?;
-    println!("[DEBUG] HTTP Status: {}", response_raw.status());
-
-    let response = response_raw.text()?;
-
-    parse_events_from_html(&response, region_query, month, year)
+    /// [Optional] Maximum travel time in hours
+    #[arg(long, default_value_t = 1.5)]
+    max_hours: f64,
 }
 
 fn main() -> Result<(), Box<dyn Error>> {
-    let args: Vec<String> = env::args().collect();
-    if args.len() < 4 {
-        eprintln!("Usage: ffe_cli <region> <month> <year>");
-        std::process::exit(1);
-    }
+    // Start with our custom logger
+    init_logging();
+    dotenvy::dotenv().ok();
 
-    let region_query = &args[1];
-    let month: u32 = args[2].parse()?;
-    let year: i32 = args[3].parse()?;
+    // --- 1. Argument Parsing with Clap ---
+    // This is now robust, typed, and provides help messages!
+    let cli = Cli::parse();
 
-    let events = get_upcoming_events_by_region_and_month(region_query, month, year)?;
+    // Intelligently determine the year based on the current date
+    let current_date = chrono::Local::now().date_naive();
+    let year = if cli.month < current_date.month() {
+        current_date.year() + 1
+    } else {
+        current_date.year()
+    };
+    log::info!(
+        "Searching for events in month {} of year {}",
+        cli.month,
+        year
+    );
 
-    for event in events {
-        println!(
-            "{} - {} | {} | {}
-{}",
-            event.start_date, event.end_date, event.title, event.location, event.link
-        );
-    }
+    // --- 2. Dependency Initialization ---
+    let config = OrsConfig::from_env()?;
+    let limiter = Limiter::new();
+    let provider = match config {
+        OrsConfig::Remote { api_key } => RemoteOrsProvider::new(api_key, limiter),
+        OrsConfig::Local { .. } => todo!(),
+    };
+
+    let department_lookup = DepartmentLookup::new("src/departments.csv")?;
+    let mut cache = GeoCache::load_from_file("geo_cache.json")?;
+    let http_client = HttpClient::new();
+
+    let origin_query = department_lookup
+        .build_geocode_query(&cli.city, &cli.department)
+        .ok_or_else(|| format!("Unknown department code: {}", cli.department))?;
+    log::info!("Origin location set to: {}", origin_query);
+
+    // --- 3. Execute SDK Logic ---
+    let all_events = get_events_for_month(cli.month, year, &http_client, &department_lookup)?;
+    log::info!(
+        "Found {} total events in France for {}/{}",
+        all_events.len(),
+        cli.month,
+        year
+    );
+
+    let reachable_events = filter_reachable_events(
+        &cli.city,
+        &origin_query,
+        &all_events,
+        &department_lookup,
+        &provider,
+        &mut cache,
+        cli.max_hours,
+    );
+
+    // --- 4. Output Results ---
+    log::info!(
+        "Found {} events reachable from {} within {} hours.",
+        reachable_events.len(),
+        cli.city,
+        cli.max_hours
+    );
+
+    let json_output = serde_json::to_string_pretty(&reachable_events)?;
+    let mut file = File::create("reachable_events.json")?;
+    file.write_all(json_output.as_bytes())?;
+    log::info!("✅ Reachable events written to reachable_events.json");
+
+    cache.save_to_file("geo_cache.json")?;
+    log::info!("💾 Cache saved to geo_cache.json");
 
     Ok(())
 }
