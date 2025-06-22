@@ -4,7 +4,10 @@ use ffe_rust::{
     sdk::config::OrsConfig,
     sdk::departments::DepartmentLookup,
     sdk::events::{filter_reachable_events, get_events_for_month},
-    sdk::routing::{cache::GeoCache, provider::RemoteOrsProvider},
+    sdk::routing::{
+        HybridOrsProvider, LocalOrsProvider, cache::GeoCache, provider::RemoteOrsProvider,
+        service::RoutingProvider,
+    },
     sdk::util::{log::init_logging, rate_limit::Limiter},
 };
 use reqwest::blocking::Client as HttpClient;
@@ -55,12 +58,25 @@ fn main() -> Result<(), Box<dyn Error>> {
 
     // --- 2. Dependency Initialization ---
     let config = OrsConfig::from_env()?;
-    let limiter = Limiter::new();
-    let provider = match config {
-        OrsConfig::Remote { api_key } => RemoteOrsProvider::new(api_key, limiter),
-        OrsConfig::Local { .. } => todo!(),
+    let provider: Box<dyn RoutingProvider> = match config {
+        OrsConfig::Hybrid {
+            api_key,
+            local_base_url,
+        } => {
+            log::info!("Provider mode: HYBRID (Remote Geocoding, Local Routing)");
+            let limiter = Limiter::new();
+            Box::new(HybridOrsProvider::new(api_key, limiter, local_base_url))
+        }
+        OrsConfig::Local { base_url } => {
+            log::info!("Provider mode: LOCAL");
+            Box::new(LocalOrsProvider::new(base_url))
+        }
+        OrsConfig::Remote { api_key } => {
+            log::info!("Provider mode: REMOTE");
+            let limiter = Limiter::new();
+            Box::new(RemoteOrsProvider::new(api_key, limiter))
+        }
     };
-
     let department_lookup = DepartmentLookup::new("src/departments.csv")?;
     let mut cache = GeoCache::load_from_file("geo_cache.json")?;
     let http_client = HttpClient::new();
@@ -84,7 +100,7 @@ fn main() -> Result<(), Box<dyn Error>> {
         &origin_query,
         &all_events,
         &department_lookup,
-        &provider,
+        provider.as_ref(),
         &mut cache,
         cli.max_hours,
     );

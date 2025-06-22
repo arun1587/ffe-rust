@@ -1,43 +1,14 @@
-use super::cache::Coord;
-use super::error::RoutingError;
-use super::route::RouteSummary;
-use super::service::RoutingProvider;
+use super::types::{DirectionsResponse, GeoResponse};
+use crate::sdk::routing::cache::Coord;
+use crate::sdk::routing::error::{OrsErrorPayload, RoutingError};
+use crate::sdk::routing::route::RouteSummary;
+use crate::sdk::routing::service::RoutingProvider;
 use crate::sdk::util::rate_limit::Limiter;
 use reqwest::blocking::Client;
-use serde::Deserialize;
 use serde_json::json;
 use std::error::Error;
 use std::time::Duration;
 
-// --- Data Structures for parsing ORS responses ---
-#[derive(Deserialize)]
-struct GeoResponse {
-    features: Vec<Feature>,
-}
-#[derive(Deserialize)]
-struct Feature {
-    geometry: Geometry,
-}
-#[derive(Deserialize)]
-struct Geometry {
-    coordinates: [f64; 2],
-}
-
-#[derive(Deserialize)]
-struct DirectionsResponse {
-    routes: Vec<Route>,
-}
-#[derive(Deserialize)]
-struct Route {
-    summary: DirectionsSummary,
-}
-#[derive(Deserialize, Clone, Copy)]
-struct DirectionsSummary {
-    distance: f64,
-    duration: f64,
-}
-
-// --- Remote Provider Implementation ---
 pub struct RemoteOrsProvider {
     client: Client,
     api_key: String,
@@ -66,7 +37,21 @@ impl RoutingProvider for RemoteOrsProvider {
             "{}/geocode/search?api_key={}&text={}",
             self.base_url, self.api_key, city
         );
-        let resp: GeoResponse = self.client.get(&url).send()?.json()?;
+        log::debug!("[PROVIDER] Calling remote geocode for city: \"{}\"", city);
+
+        let response = self.client.get(&url).send()?;
+        let text = response.text()?;
+
+        let resp: GeoResponse = serde_json::from_str(&text).map_err(|e| {
+            log::error!(
+                "Failed to parse GeoResponse. URL: {}\nError: {}. Body: {}",
+                url,
+                e,
+                text
+            );
+            e
+        })?;
+
         let coords = resp
             .features
             .first()
@@ -82,7 +67,24 @@ impl RoutingProvider for RemoteOrsProvider {
             "{}/geocode/reverse?point.lon={}&point.lat={}&api_key={}",
             self.base_url, coord.0, coord.1, self.api_key
         );
-        let body: GeoResponse = self.client.get(&url).send()?.json()?;
+        log::debug!(
+            "[PROVIDER] Calling remote reverse_geocode for coord: {:?}",
+            coord
+        );
+
+        let response = self.client.get(&url).send()?;
+        let text = response.text()?;
+
+        let body: GeoResponse = serde_json::from_str(&text).map_err(|e| {
+            log::error!(
+                "Failed to parse GeoResponse. URL: {}\nError: {}. Body: {}",
+                url,
+                e,
+                text
+            );
+            e
+        })?;
+
         Ok(body
             .features
             .into_iter()
@@ -92,8 +94,13 @@ impl RoutingProvider for RemoteOrsProvider {
 
     fn is_routable(&self, coord: Coord) -> Result<bool, Box<dyn Error>> {
         self.limiter.wait();
+        log::debug!(
+            "[PROVIDER] Calling remote is_routable for coord: {:?}",
+            coord
+        );
         let url = format!("{}/v2/directions/driving-car", self.base_url);
         let body = json!({ "coordinates": [[coord.0, coord.1], [coord.0, coord.1]] });
+
         let response = self
             .client
             .post(url)
@@ -105,7 +112,6 @@ impl RoutingProvider for RemoteOrsProvider {
 
     fn get_directions(&self, start: Coord, end: Coord) -> Result<RouteSummary, Box<dyn Error>> {
         if start == end {
-            log::debug!("Start and end coordinates are identical. Returning zero route.");
             return Ok(RouteSummary {
                 distance_km: 0.0,
                 duration_hours: 0.0,
@@ -113,25 +119,64 @@ impl RoutingProvider for RemoteOrsProvider {
         }
 
         self.limiter.wait();
+        log::debug!(
+            "[PROVIDER] Calling remote get_directions for {:?} -> {:?}",
+            start,
+            end
+        );
         let url = format!("{}/v2/directions/driving-car", self.base_url);
         let body = json!({ "coordinates": [[start.0, start.1], [end.0, end.1]] });
-        let response = self
+
+        let response = match self
             .client
-            .post(url)
+            .post(&url)
             .header("Authorization", &self.api_key)
             .json(&body)
-            .send()?;
+            .send()
+        {
+            Ok(resp) => resp,
+            Err(e) => {
+                log::error!(
+                    "Failed to send POST request. URL: {}\nBody: {}\nError: {}",
+                    url,
+                    serde_json::to_string_pretty(&body).unwrap_or_default(),
+                    e
+                );
+                return Err(Box::new(e));
+            }
+        };
+
         let status = response.status();
         let text = response.text()?;
 
         if !status.is_success() {
-            if text.contains("2010") {
-                return Err(Box::new(RoutingError::UnroutablePoint));
+            // Try to parse the structured error first
+            if let Ok(payload) = serde_json::from_str::<OrsErrorPayload>(&text) {
+                return Err(Box::new(RoutingError::ApiError {
+                    code: payload.error.code,
+                    message: payload.error.message,
+                }));
+            } else {
+                // Fallback to a raw error if parsing fails
+                log::error!(
+                    "API returned non-success status: {}. Unparseable Body: {}",
+                    status,
+                    text
+                );
+                return Err(Box::new(RoutingError::RawApiError(text)));
             }
-            return Err(Box::new(RoutingError::ApiError(text)));
         }
 
-        let route_response: DirectionsResponse = serde_json::from_str(&text)?;
+        let route_response: DirectionsResponse = serde_json::from_str(&text).map_err(|e| {
+            log::error!(
+                "Failed to parse DirectionsResponse. URL: {}\nError: {}. Body: {}",
+                url,
+                e,
+                text
+            );
+            e
+        })?;
+
         let summary = route_response
             .routes
             .first()

@@ -9,7 +9,9 @@ use std::collections::HashSet;
 use std::error::Error;
 
 use super::departments::DepartmentLookup;
-use super::routing::{cache::GeoCache, route::get_road_distance, service::RoutingProvider};
+use super::routing::{
+    cache::GeoCache, error::RoutingError, route::get_road_distance, service::RoutingProvider,
+};
 
 #[derive(Debug, Clone, Serialize, Eq, PartialEq, Hash)]
 pub struct Event {
@@ -179,7 +181,7 @@ pub fn get_events_for_month(
 
 pub fn filter_reachable_events(
     origin_city: &str,
-    origin: &str,
+    origin_query: &str,
     events: &[Event],
     lookup: &DepartmentLookup,
     provider: &dyn RoutingProvider,
@@ -190,7 +192,7 @@ pub fn filter_reachable_events(
     log::info!(
         "Filtering {} events for reachability from '{}' (max {:.2} hours)...",
         events.len(),
-        origin,
+        origin_city,
         max_hours
     );
 
@@ -207,7 +209,7 @@ pub fn filter_reachable_events(
         if let Some(department_name) = lookup.get_name(&event.department) {
             let destination = format!("{}, {}", event.location, department_name);
 
-            match get_road_distance(origin, &destination, provider, cache) {
+            match get_road_distance(origin_query, &destination, provider, cache) {
                 Ok(summary) if summary.duration_hours <= max_hours => {
                     log::info!(
                         "[REACHABLE] {} at {} ({:.1} km, {:.2} hrs)",
@@ -226,13 +228,40 @@ pub fn filter_reachable_events(
                         summary.duration_hours
                     );
                 }
-                Err(err) => {
-                    log::error!(
-                        "Could not calculate route for '{}' to '{}': {}",
-                        origin,
-                        destination,
-                        err
-                    );
+                // THIS IS THE NEW, SMARTER ERROR HANDLING BLOCK
+                Err(e) => {
+                    // Try to downcast the error to our specific RoutingError type
+                    if let Some(routing_error) = e.downcast_ref::<RoutingError>() {
+                        match routing_error {
+                            // If the error is an API error with code 2004...
+                            RoutingError::ApiError { code: 2004, .. } => {
+                                // ...log it as a DEBUG message and move on. This is not a failure.
+                                log::debug!(
+                                    "[EXPECTED LIMIT] Route for {} is too long to calculate: {}",
+                                    event.title,
+                                    routing_error
+                                );
+                            }
+                            // For all other specific routing errors...
+                            _ => {
+                                // ...log them as critical errors.
+                                log::error!(
+                                    "Routing error for '{}' to '{}': {}",
+                                    origin_query,
+                                    destination,
+                                    e
+                                );
+                            }
+                        }
+                    } else {
+                        // For any other kind of error (not a RoutingError)...
+                        log::error!(
+                            "Unexpected error for '{}' to '{}': {}",
+                            origin_query,
+                            destination,
+                            e
+                        );
+                    }
                 }
             }
         }
