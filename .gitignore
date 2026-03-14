@@ -1,1 +1,21 @@
-target
+# Rust
+target/
+
+# Environment
+.env
+
+# Generated Output & Caches
+all_events.json
+reachable_events.json
+geo_cache.json
+
+# Local ORS Docker Volume Mounts
+on-prem-ors/ors-docker/elevation_cache/
+on-prem-ors/ors-docker/graphs/
+on-prem-ors/ors-docker/logs/
+
+# Geofabrik Map Files (Large Binaries)
+*.osm.pbf
+*.osm.gz
+*.poly
+on-prem-ors/ors-docker/files/polyfiles/

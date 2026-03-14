@@ -33,13 +33,14 @@ impl RemoteOrsProvider {
 impl RoutingProvider for RemoteOrsProvider {
     fn geocode(&self, city: &str) -> Result<Coord, Box<dyn Error>> {
         self.limiter.wait();
-        let url = format!(
-            "{}/geocode/search?api_key={}&text={}",
-            self.base_url, self.api_key, city
-        );
+        let url = format!("{}/geocode/search", self.base_url);
         log::debug!("[PROVIDER] Calling remote geocode for city: \"{}\"", city);
 
-        let response = self.client.get(&url).send()?;
+        let response = self
+            .client
+            .get(&url)
+            .query(&[("api_key", &self.api_key), ("text", &city.to_string())])
+            .send()?;
         let text = response.text()?;
 
         let resp: GeoResponse = serde_json::from_str(&text).map_err(|e| {
@@ -63,16 +64,21 @@ impl RoutingProvider for RemoteOrsProvider {
 
     fn reverse_geocode(&self, coord: Coord) -> Result<Vec<Coord>, Box<dyn Error>> {
         self.limiter.wait();
-        let url = format!(
-            "{}/geocode/reverse?point.lon={}&point.lat={}&api_key={}",
-            self.base_url, coord.0, coord.1, self.api_key
-        );
+        let url = format!("{}/geocode/reverse", self.base_url);
         log::debug!(
             "[PROVIDER] Calling remote reverse_geocode for coord: {:?}",
             coord
         );
 
-        let response = self.client.get(&url).send()?;
+        let response = self
+            .client
+            .get(&url)
+            .query(&[
+                ("point.lon", &coord.0.to_string()),
+                ("point.lat", &coord.1.to_string()),
+                ("api_key", &self.api_key),
+            ])
+            .send()?;
         let text = response.text()?;
 
         let body: GeoResponse = serde_json::from_str(&text).map_err(|e| {

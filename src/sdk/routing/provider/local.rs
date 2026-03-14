@@ -28,9 +28,13 @@ impl LocalOrsProvider {
 impl RoutingProvider for LocalOrsProvider {
     fn geocode(&self, city: &str) -> Result<Coord, Box<dyn Error>> {
         log::debug!("[PROVIDER] Calling local geocode for city: \"{}\"", city);
-        let url = format!("{}/pelias/v1/search?text={}", self.base_url, city);
+        let url = format!("{}/pelias/v1/search", self.base_url);
 
-        let response = self.client.get(&url).send()?;
+        let response = self
+            .client
+            .get(&url)
+            .query(&[("text", city)])
+            .send()?;
         let text = response.text()?;
 
         let resp: GeoResponse = serde_json::from_str(&text).map_err(|e| {

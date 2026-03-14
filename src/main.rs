@@ -26,7 +26,7 @@ struct Cli {
     department: String,
 
     /// The month to search for events (1-12)
-    #[arg(short, long)]
+    #[arg(short, long, value_parser = clap::value_parser!(u32).range(1..=12))]
     month: u32,
 
     /// [Optional] Maximum travel time in hours
@@ -39,8 +39,7 @@ fn main() -> Result<(), Box<dyn Error>> {
     init_logging();
     dotenvy::dotenv().ok();
 
-    // --- 1. Argument Parsing with Clap ---
-    // This is now robust, typed, and provides help messages!
+    // Argument Parsing with Clap
     let cli = Cli::parse();
 
     // Intelligently determine the year based on the current date
@@ -56,8 +55,43 @@ fn main() -> Result<(), Box<dyn Error>> {
         year
     );
 
-    // --- 2. Dependency Initialization ---
-    let config = OrsConfig::from_env()?;
+    // Non-ORS Dependencies
+    let department_lookup = DepartmentLookup::new()?;
+    let http_client = HttpClient::new();
+
+    let origin_query = department_lookup
+        .build_geocode_query(&cli.city, &cli.department)
+        .ok_or_else(|| format!("Unknown department code: {}", cli.department))?;
+    log::info!("Origin location set to: {}", origin_query);
+
+    // Scrape Events (no ORS needed)
+    let all_events = get_events_for_month(cli.month, year, &http_client, &department_lookup)?;
+    log::info!(
+        "Found {} total events in France for {}/{}",
+        all_events.len(),
+        cli.month,
+        year
+    );
+
+    if all_events.is_empty() {
+        log::info!("No events found. Nothing to filter.");
+        return Ok(());
+    }
+
+    // ORS Initialization (may fail gracefully)
+    let config = match OrsConfig::from_env() {
+        Ok(config) => config,
+        Err(e) => {
+            log::warn!("⚠️  ORS not configured: {}. Skipping reachability filtering.", e);
+            log::info!("Writing ALL {} scraped events to all_events.json", all_events.len());
+            let json_output = serde_json::to_string_pretty(&all_events)?;
+            let mut file = File::create("all_events.json")?;
+            file.write_all(json_output.as_bytes())?;
+            log::info!("✅ All events written to all_events.json");
+            return Ok(());
+        }
+    };
+
     let provider: Box<dyn RoutingProvider> = match config {
         OrsConfig::Hybrid {
             api_key,
@@ -77,24 +111,10 @@ fn main() -> Result<(), Box<dyn Error>> {
             Box::new(RemoteOrsProvider::new(api_key, limiter))
         }
     };
-    let department_lookup = DepartmentLookup::new("src/departments.csv")?;
+
     let mut cache = GeoCache::load_from_file("geo_cache.json")?;
-    let http_client = HttpClient::new();
 
-    let origin_query = department_lookup
-        .build_geocode_query(&cli.city, &cli.department)
-        .ok_or_else(|| format!("Unknown department code: {}", cli.department))?;
-    log::info!("Origin location set to: {}", origin_query);
-
-    // --- 3. Execute SDK Logic ---
-    let all_events = get_events_for_month(cli.month, year, &http_client, &department_lookup)?;
-    log::info!(
-        "Found {} total events in France for {}/{}",
-        all_events.len(),
-        cli.month,
-        year
-    );
-
+    // Filter by Reachability
     let reachable_events = filter_reachable_events(
         &cli.city,
         &origin_query,
@@ -105,7 +125,7 @@ fn main() -> Result<(), Box<dyn Error>> {
         cli.max_hours,
     );
 
-    // --- 4. Output Results ---
+    // Output Results
     log::info!(
         "Found {} events reachable from {} within {} hours.",
         reachable_events.len(),

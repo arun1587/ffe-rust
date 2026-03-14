@@ -1,32 +1,23 @@
 #!/bin/bash
-
 set -e
 
-# 1. Create a directory for .poly files
-mkdir -p polyfiles
-cd polyfiles
+# Make sure osmium is installed
+if ! command -v osmium &> /dev/null
+then
+    echo "osmium could not be found. Please install it (e.g., 'brew install osmium-tool' or 'sudo apt install osmium-tool')"
+    exit 1
+fi
 
-# 2. Download .poly files
-echo "Downloading .poly files..."
-curl -s -o Bretagne.poly "https://polygons.openstreetmap.fr/get_poly.py?id=102740&params=0"
-curl -s -o Normandie.poly "https://polygons.openstreetmap.fr/get_poly.py?id=3793170&params=0"
-curl -s -o PaysDeLaLoire.poly "https://polygons.openstreetmap.fr/get_poly.py?id=8650&params=0"
+echo "Downloading individual regions for Western France..."
+curl -L -o bretagne-latest.osm.pbf "https://download.geofabrik.de/europe/france/bretagne-latest.osm.pbf"
+curl -L -o basse-normandie-latest.osm.pbf "https://download.geofabrik.de/europe/france/basse-normandie-latest.osm.pbf"
+curl -L -o haute-normandie-latest.osm.pbf "https://download.geofabrik.de/europe/france/haute-normandie-latest.osm.pbf"
+curl -L -o pays-de-la-loire-latest.osm.pbf "https://download.geofabrik.de/europe/france/pays-de-la-loire-latest.osm.pbf"
 
-# 3. Merge poly files into west.poly
-echo "Merging .poly files into west.poly..."
-{
-  echo "west"
-  for region in Bretagne Normandie PaysDeLaLoire; do
-    sed '1d;$d' "${region}.poly"
-  done
-  echo "END"
-} > west.poly
+echo "Merging regions into west-france.osm.pbf using osmium..."
+osmium merge bretagne-latest.osm.pbf basse-normandie-latest.osm.pbf haute-normandie-latest.osm.pbf pays-de-la-loire-latest.osm.pbf -o west-france.osm.pbf --overwrite
 
-cd ..
+echo "Cleaning up individual region files..."
+rm bretagne-latest.osm.pbf basse-normandie-latest.osm.pbf haute-normandie-latest.osm.pbf pays-de-la-loire-latest.osm.pbf
 
-# 4. Run osmium extract
-echo "Extracting western France from france-latest.osm.pbf..."
-osmium extract -p polyfiles/west.poly france-latest.osm.pbf -o west-france.osm.pbf
-
-echo "✅ Extraction complete: west-france.osm.pbf"
-
+echo "✅ Generation complete: west-france.osm.pbf"

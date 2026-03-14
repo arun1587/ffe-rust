@@ -116,27 +116,72 @@ fn parse_list_view_html(
     Ok(events)
 }
 
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_parse_list_view_html() {
+        let lookup = DepartmentLookup::new().unwrap();
+        let html = r#"
+            <table>
+                <tr class="liste_clair">
+                    <td><a href="FicheTournoi.aspx?Ref=12345">Grand Prix</a></td>
+                    <td> 35 </td>
+                    <td> Rennes </td>
+                    <td> 05/04/2026 </td>
+                    <td> 06/04/2026 </td>
+                </tr>
+            </table>
+        "#;
+        
+        let events = parse_list_view_html(html, &lookup).unwrap();
+        assert_eq!(events.len(), 1);
+        let ev = &events[0];
+        assert_eq!(ev.title, "Grand Prix");
+        assert_eq!(ev.department, "35");
+        assert_eq!(ev.location, "Rennes");
+        assert_eq!(ev.start_date.format("%Y-%m-%d").to_string(), "2026-04-05");
+        assert_eq!(ev.end_date.format("%Y-%m-%d").to_string(), "2026-04-06");
+        assert_eq!(ev.link, "https://www.echecs.asso.fr/FicheTournoi.aspx?Ref=12345");
+    }
+}
+
+fn fetch_html_with_retry(client: &Client, url: &str, max_retries: u32) -> Result<String, Box<dyn Error>> {
+    let mut headers = HeaderMap::new();
+    headers.insert(USER_AGENT, "Mozilla/5.0".parse().unwrap());
+    
+    let mut attempts = 0;
+    loop {
+        attempts += 1;
+        match client.get(url).headers(headers.clone()).send().and_then(|r| r.error_for_status()) {
+            Ok(resp) => return Ok(resp.text()?),
+            Err(e) => {
+                if attempts >= max_retries {
+                    return Err(Box::new(e));
+                }
+                log::warn!("Request to {} failed: {}. Retrying ({}/{})", url, e, attempts, max_retries);
+                std::thread::sleep(std::time::Duration::from_secs(2));
+            }
+        }
+    }
+}
+
 pub fn get_events_for_month(
     month: u32,
     year: i32,
     client: &Client,
     lookup: &DepartmentLookup,
 ) -> Result<Vec<Event>, Box<dyn Error>> {
-    let mut headers = HeaderMap::new();
-    headers.insert(USER_AGENT, "Mozilla/5.0".parse().unwrap());
 
-    // 1. Scout Mission: Get the monthly calendar view.
+    // Scout Mission: Get the monthly calendar view.
     let date_string = format!("01/{:02}/{}", month, year);
     let calendar_url = format!(
         "https://www.echecs.asso.fr/Calendrier.aspx?Date={}",
         date_string
     );
     log::info!("Scouting for active days from {}", calendar_url);
-    let calendar_html = client
-        .get(&calendar_url)
-        .headers(headers.clone())
-        .send()?
-        .text()?;
+    let calendar_html = fetch_html_with_retry(client, &calendar_url, 3)?;
     let active_days = get_active_days_from_monthly_calendar(&calendar_html, month, year)?;
 
     if active_days.is_empty() {
@@ -151,7 +196,7 @@ pub fn get_events_for_month(
     // Use a HashSet to automatically handle duplicates (events spanning multiple days).
     let mut unique_events = HashSet::new();
 
-    // 2. Targeted Strikes: Fetch details only for the active days.
+    // Targeted Strikes: Fetch details only for the active days.
     for day in active_days {
         let list_view_date = format!("{:02}/{:02}/{}", day, month, year);
         let list_view_url = format!(
@@ -160,11 +205,7 @@ pub fn get_events_for_month(
         );
 
         log::debug!("Fetching details from {}", list_view_url);
-        let html = client
-            .get(&list_view_url)
-            .headers(headers.clone())
-            .send()?
-            .text()?;
+        let html = fetch_html_with_retry(client, &list_view_url, 3)?;
 
         let daily_events = parse_list_view_html(&html, lookup)?;
         for event in daily_events {
