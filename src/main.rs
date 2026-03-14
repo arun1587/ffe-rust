@@ -1,14 +1,9 @@
 use chrono::Datelike;
 use clap::Parser;
 use ffe_rust::{
-    sdk::config::OrsConfig,
-    sdk::departments::DepartmentLookup,
-    sdk::events::{filter_reachable_events, get_events_for_month},
-    sdk::routing::{
-        HybridOrsProvider, LocalOrsProvider, cache::GeoCache, provider::RemoteOrsProvider,
-        service::RoutingProvider,
-    },
-    sdk::util::{log::init_logging, rate_limit::Limiter},
+    filter_reachable_events, get_events_for_month, DepartmentLookup, GeoCache,
+    HybridOrsProvider, LocalOrsProvider, OrsConfig, RemoteOrsProvider,
+    RoutingProvider, Limiter, sdk::util::log::init_logging,
 };
 use reqwest::blocking::Client as HttpClient;
 use std::{error::Error, fs::File, io::Write};

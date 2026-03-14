@@ -61,3 +61,49 @@ Building the routing graph for all of France requires ~18GB+ of memory. To run t
    ```
 
 *(Wait 1-3 minutes for the `driving-car` graph to compile locally. Check `docker logs ors-app -f` to monitor graph-building initialization. You will see an "ORS IS READY" status in the logs when it completes.)*
+
+---
+
+## 📦 Using as an SDK
+
+`ffe-rust` is built as a hybrid binary/library, meaning you can easily import it into other Rust projects (e.g. your own backends)!
+
+Add it to your `Cargo.toml`:
+```toml
+[dependencies]
+ffe-rust = { path = "../ffe-rust" } # Or git url
+reqwest = { version = "0.11", features = ["blocking"] }
+```
+
+Here's a simple example of scraping events and filtering them directly in your own code:
+
+```rust
+use ffe_rust::{
+    get_events_for_month, filter_reachable_events,
+    DepartmentLookup, GeoCache, LocalOrsProvider
+};
+
+fn main() {
+    // Initialize dependencies
+    let lookup = DepartmentLookup::new().expect("Failed to load departments");
+    let client = reqwest::blocking::Client::new();
+    let provider = LocalOrsProvider::new("http://localhost:8080/ors".to_string());
+    let mut cache = GeoCache::load_from_file("geo_cache.json").unwrap_or_default();
+
+    // Scrape FFE for April 2026
+    let all_events = get_events_for_month(4, 2026, &client, &lookup).unwrap();
+    
+    // Filter for events reachable within 2 hours of Rennes
+    let reachable = filter_reachable_events(
+        "Rennes", 
+        "Rennes, Ille-et-Vilaine", 
+        &all_events, 
+        &lookup, 
+        &provider, 
+        &mut cache, 
+        2.0
+    );
+
+    println!("Found {} reachable events!", reachable.len());
+}
+```
